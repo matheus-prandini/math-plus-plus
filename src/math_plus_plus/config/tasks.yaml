@@ -1,0 +1,126 @@
+creator_task:
+  description: >
+    Analyze a text document (.txt) containing math problems designed for elementary school children.
+    Based on this analysis, create new math problem statements in English that are similar in terms of content and difficulty level but also incorporate gamification elements.
+
+    The problem statements must:
+    - Be presented in a game or challenge context that is attractive to children.
+    - Include a narrative or playful scenario that encourages problem-solving.
+    - Integrate basic programming concepts that can be implemented as games in Scratch, such as variables, conditionals, and/or loops.
+    - Have a correct and deterministic answer.
+    - Encourage the integrated and fun learning of math and programming.
+
+    The focus is on creating problems that can be transformed into interactive games in MIT Scratch, enhancing student engagement through game mechanics. Each problem must contain only one correct answer.
+  expected_output: >
+    The output must adhere to the following Pydantic model:
+
+    ```python
+    class CreatorItem(BaseModel):
+        question: str
+
+    class CreatorResponse(BaseModel):
+        items: list[CreatorItem]
+    ```
+
+    Ensure that `items` is a list of `CreatorItem` objects, where each contains a single math problem statement as `question`.
+  agent: creator
+
+validator_task:
+  description: >
+    Carefully analyze each received gamified math problem statement.
+    For each statement, follow these steps:
+      1. Verify that the statement is clear, makes sense, and can be solved mathematically.
+      2. Evaluate whether the game context or narrative is appropriate and engaging for elementary school children.
+      3. Solve the problem, detailing the mathematical reasoning required to arrive at the correct answer.
+      4. Determine if the statement can be programmed as an interactive game using MIT Scratch, employing basic elements such as variables, conditionals, and/or loops.
+    Filter only the statements that meet all the above criteria.
+  expected_output: >
+    The output must adhere to the following Pydantic model:
+
+    ```python
+    class Item(BaseModel):
+        question: str
+        reasoning: str
+        final_answer: str
+
+    class ValidatorResponse(BaseModel):
+        items: list[Item]
+    ```
+
+    Ensure that `items` is a list of `Item` objects, where each contains the following:
+      - `question`: The original problem statement.
+      - `reasoning`: A detailed explanation of the steps to solve the problem.
+      - `final_answer`: The correct answer to the problem.
+  agent: validator
+
+implementer_task:
+  description: >
+    For each item in the received list, follow these steps:
+      - Carefully analyze the gamified problem statement, the provided reasoning, and the final answer.
+      - Implement the solution as an interactive game using the Scratch programming language, ensuring:
+        - The implementation adheres to the correct Scratch block syntax in JSON format.
+        - The game reaches the correct final answer, providing appropriate feedback to the player.
+        - The solution is didactic, fun, and suitable for elementary school children.
+        - The game includes gamification elements such as scoring, challenges, rewards, or engaging narratives.
+      - Perform a double-check to ensure the solution is correct, the game is functional, and it provides a good user experience.
+  expected_output: >
+    The output must adhere to the following Pydantic model:
+
+    ```python
+    class ImplementerItem(Item):
+        question: str
+        reasoning: str
+        final_answer: str
+        solution: dict
+
+    class ImplementerResponse(BaseModel):
+        items: list[ImplementerItem]
+    ```
+
+    Ensure that `items` is a list of `ImplementerItem` objects, where each includes:
+      - `question`: The original problem statement.
+      - `reasoning`: The reasoning to solve the problem.
+      - `final_answer`: The correct final answer.
+      - `solution`: A dictionary containing the Scratch implementation in JSON block syntax.
+  agent: implementer
+
+scratch_validator_task:
+  description: >
+    Validate a Scratch solution implemented to solve a gamified math problem.
+    For each item received, follow these steps:
+      1. **Verify the problem statement and reasoning**:
+         - Confirm that the problem statement is clear, well-structured, and describes the math problem and the logic required to solve it.
+         - Verify that the provided reasoning is consistent with the problem and leads to the correct answer.
+         - Verify whether the problem has an unique correct answer.
+      2. **Validate the Scratch solution**:
+         - Analyze the provided Scratch implementation in JSON format, checking:
+           - Logical functionality: Does the solution follow the rules of the problem and the described reasoning?
+           - Mathematical correctness: Does the solution produce the expected final result?
+           - Proper use of Scratch blocks: Does the implementation appropriately use variables, conditionals, loops, and other relevant structures?
+      3. **Educational quality and gamification**:
+         - Assess whether the solution is fun, engaging, and suitable for children.
+         - Verify whether gamification has been implemented, such as scoring, narratives, rewards, or other elements that incentivize the player.
+      4. **Overall classification**:
+         - Classify the solution as valid or invalid based on the above criteria.
+  expected_output: >
+    The output must adhere to the following Pydantic model:
+
+    ```python
+    class ValidationItem(BaseModel):
+        question: str
+        reasoning: str
+        final_answer: str
+        solution: dict
+        is_valid: bool
+
+    class SolverValidationResponse(BaseModel):
+        items: list[ValidationItem]
+    ```
+
+    Ensure that `items` is a list of `ValidationItem` objects, where each includes:
+      - `question`: The original problem statement.
+      - `reasoning`: The reasoning to solve the problem.
+      - `final_answer`: The expected final answer.
+      - `solution`: The Scratch implementation in JSON block syntax.
+      - `is_valid`: A boolean indicating if the solution is correct.
+  agent: scratch_validator
