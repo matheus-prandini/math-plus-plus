@@ -1,0 +1,233 @@
+{
+  "items": [
+    {
+      "question": "Help Alex the Adventurer navigate through the Pixel Forest. Each step forward can be an 'add forward' (addition) or 'multiply forward' (multiplication) by a given number of steps. Can you find the right path using these operations to reach the hidden treasure hidden exactly at position 30? Use Scratch to program Alex's journey, mindful of choosing addition or multiplication wisely!",
+      "math_reasoning": "To solve this problem, we need to use a combination of addition and multiplication operations to achieve the exact position 30. We start from position 0 and can choose to add or multiply a given step value to reach 30. Let's assume the step values provided are 2, 3, and 5 (common in these gamified settings). Starting from 0, we can add 2 to reach 2. Then multiply by 5 to reach 10. Finally, add 20 (using 4 iterations of adding 5) to reach 30. The steps in Scratch would involve sequential operations involving variables to track Alex's position.",
+      "math_solution": "Multiplication and addition sequence to reach 30: ((0 + 2) * 5) + 20 = 30.",
+      "scratch_reasoning": "In Scratch, we simulate Alex's movement by leveraging variables to represent his position. Start with position 0. Using a series of 'change by' and 'set to' blocks, simulate adding 2 to the initial position then multiplying the resultant position by 5. Finally, in a loop, add 5 to the position repeatedly to make up the remaining steps (repeated 4 times to add up to 20 more steps) till Alex reaches the exact position of 30.",
+      "scratch_solution": {
+        "variables": {
+          "position": 0
+        },
+        "blocks": [
+          {
+            "event": "when green flag clicked",
+            "actions": [
+              {
+                "type": "set",
+                "variable": "position",
+                "to": 0
+              },
+              {
+                "type": "change",
+                "variable": "position",
+                "by": 2
+              },
+              {
+                "type": "multiply",
+                "variable": "position",
+                "by": 5
+              },
+              {
+                "type": "repeat",
+                "times": 4,
+                "actions": [
+                  {
+                    "type": "change",
+                    "variable": "position",
+                    "by": 5
+                  }
+                ]
+              },
+              {
+                "type": "say",
+                "message": "Alex reached the hidden treasure at position 30!"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "The Town of Loopville is holding a race, and contestants must reach the finish line exactly at the 10th iteration of their running loop. However, each loop can increase their distance randomly by 2, 3, or 5 steps. Write a Scratch program to calculate the exact distance covered and use loops correctly to ensure each runner finishes at the intended step. Beware of using the wrong type of loop!",
+      "math_reasoning": "The goal is to reach the finish line exactly at the 10th iteration, so the total distance needs to be exactly a multiple that corresponds to the total iterations. If the loop adds 2 steps per iteration, the distance would be 2 * 10 = 20 steps. If 3 steps, then 3 * 10 = 30 steps; if 5 steps, then 5 * 10 = 50 steps. Using Scratch, we would track the number of iterations and the cumulative distance, ensuring the loop condition completes at the 10th cycle to guarantee exact distance based on step increment per iteration.",
+      "math_solution": "Using a loop of 10 iterations, each step can be adjusted to distance = iteration * step_increment (e.g., 20 for 2 steps, 30 for 3 steps, 50 for 5 steps).",
+      "scratch_reasoning": "Implement a loop in Scratch to track 10 iterations where in each iteration the distance is increased by a constant step_increment. Use a variable to store this distance increment and multiply it by the iteration number. Make sure the loop runs exactly 10 times to maintain precise control over the final total distance of the runner completing the race.",
+      "scratch_solution": {
+        "variables": {
+          "distance": 0,
+          "step_increment": 2
+        },
+        "blocks": [
+          {
+            "event": "when green flag clicked",
+            "actions": [
+              {
+                "type": "set",
+                "variable": "distance",
+                "to": 0
+              },
+              {
+                "type": "set",
+                "variable": "step_increment",
+                "to": 2
+              },
+              {
+                "type": "repeat",
+                "times": 10,
+                "actions": [
+                  {
+                    "type": "change",
+                    "variable": "distance",
+                    "by": {
+                      "operator": "*",
+                      "operands": [
+                        {
+                          "variable": "step_increment"
+                        },
+                        {
+                          "value": 1
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "say",
+                "message": "Finished the race with distance {distance}"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "In the Coding Kingdom, knights must prove their skill by balancing variables of their inventory. Sir Code-a-lot tends to collect too many variables and needs your help to manage just the essential ones for battle. Craft a Scratch story where each variable represents a piece of equipment, and find a way to track their total weight without duplicating unnecessary items.",
+      "math_reasoning": "This involves managing a list of items, each with a weight, and ensuring duplicates do not occur while summing the total weight. We need to iterate over the list of items and check if an item already exists in our weighted total. If not, add its weight to the total and flag it as used. In Scratch, this can be done using arrays or lists for inventory, and loop structures to add weights and check for duplicates.",
+      "math_solution": "Iterate through item list, adding unique item weight to total. Track seen items to prevent duplication: total_weight += new_item_weight (if not already counted).",
+      "scratch_reasoning": "To implement an inventory check in Scratch, maintain a list for equipment and another to track seen items. Start by iterating through the list of equipment weights. For each item weight, check if it's not in the seen list. If not present, add to the total weight and mark the item as seen by adding its weight value into the seen list, thus ensuring no repeated weights are added.",
+      "scratch_solution": {
+        "variables": {
+          "total_weight": 0
+        },
+        "lists": {
+          "equipment": [
+            5,
+            10,
+            5,
+            20,
+            10
+          ],
+          "seen_items": []
+        },
+        "blocks": [
+          {
+            "event": "when green flag clicked",
+            "actions": [
+              {
+                "type": "set",
+                "variable": "total_weight",
+                "to": 0
+              },
+              {
+                "type": "for each",
+                "item": "weight",
+                "in": "equipment",
+                "actions": [
+                  {
+                    "type": "if",
+                    "condition": {
+                      "operator": "not in",
+                      "operands": [
+                        {
+                          "value": "weight"
+                        },
+                        {
+                          "variable": "seen_items"
+                        }
+                      ]
+                    },
+                    "actions": [
+                      {
+                        "type": "change",
+                        "variable": "total_weight",
+                        "by": {
+                          "value": "weight"
+                        }
+                      },
+                      {
+                        "type": "add to list",
+                        "list": "seen_items",
+                        "item": {
+                          "value": "weight"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "say",
+                "message": "Sir Code-a-lot's total weight is {total_weight}"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "Join Sally the Scientist in the Lab of Iteration. She is testing a new hypothesis that requires setting up a chain reaction that must repeat a precise number of times to succeed. Help Sally design a Scratch experiment that uses 'repeat until' loops to correctly time and trigger her chemical reactions without missing a step. Ensure no conditions are bypassed!",
+      "math_reasoning": "This problem requires us to set up a looping condition in Scratch that repeats a process until a condition is met. We initialize a count to track the iterations. The 'repeat until' loop continues executing the block of code, designed to simulate a chemical reaction, until the specified condition holds true, such as a reaction activated count equals a target count (e.g., 10). This ensures exact iteration adherence.",
+      "math_solution": "Use 'repeat until' loop in Scratch: Set loop condition to trigger based on number of reactions needed (e.g., 10): i = 0; repeat until i = target_count (increment i per loop).",
+      "scratch_reasoning": "In Scratch, implement a 'repeat until' loop to simulate the chemical reaction. Start with an initial reaction count set to 0. The loop will continually trigger a 'reaction' until it reaches the target reaction count (e.g., 10). Increment the count each time a reaction is triggered to ensure precise control and adherence to the hypothesis.",
+      "scratch_solution": {
+        "variables": {
+          "reaction_count": 0,
+          "target_count": 10
+        },
+        "blocks": [
+          {
+            "event": "when green flag clicked",
+            "actions": [
+              {
+                "type": "set",
+                "variable": "reaction_count",
+                "to": 0
+              },
+              {
+                "type": "repeat until",
+                "condition": {
+                  "operator": "=",
+                  "operands": [
+                    {
+                      "variable": "reaction_count"
+                    },
+                    {
+                      "variable": "target_count"
+                    }
+                  ]
+                },
+                "actions": [
+                  {
+                    "type": "change",
+                    "variable": "reaction_count",
+                    "by": 1
+                  },
+                  {
+                    "type": "say",
+                    "message": "Reacting: {reaction_count}"
+                  }
+                ]
+              },
+              {
+                "type": "say",
+                "message": "All reactions completed successfully!"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

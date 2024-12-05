@@ -1,0 +1,36 @@
+ITENS DE MATEMÁTICA – 9º ANO
+
+Descritor 1 - Resolver problema utilizando propriedades dos polígonos (soma de seus ângulos internos, número de diagonais, cálculo da medida de cada ângulo interno nos polígonos regulares).
+Um polígono regular possui a medida do ângulo central igual a 40°. Esse polígono é formado por:
+
+(A) 5 lados
+(B) 9 lados
+(C) 10 lados
+(D) 20 lados
+
+Descritor 2 – Resolver problema envolvendo o cálculo de perímetro de figuras planas.
+A quadra de futebol de salão de uma escola possui 22 m de largura e 42 m de comprimento. Um aluno que dá uma volta completa nessa quadra percorre:
+
+(A) 64 m
+(B) 84 m
+(C) 106 m
+(D) 128 m
+
+Descritor 3 – Resolver problema utilizando relações entre diferentes unidades de medida.
+Diana mediu com uma régua o comprimento de um lápis e encontrou 17,5 cm. Essa medida equivale, em mm, a:
+
+(A) 0,175
+(B) 1,75
+(C) 175
+(D) 1750
+
+Descritor 4 – Resolver problema que envolva variação proporcional, direta ou inversa, entre grandezas.
+Trabalhando 10 horas por dia, um pedreiro constrói uma casa em 120 dias. Em quantos dias ele construirá a mesma casa, se trabalhar 8 horas por dia?
+
+(A) 96
+(B) 138
+(C) 150
+(D) 240
+
+Descritor 5 – Resolver problema que envolva equação do 2.º grau.
+Uma galeria vai organizar um concurso de pintura e faz as seguintes exigências: 1 - A área de cada quadro deve ser 600 cm²; 2 - Os quadros precisam ser retangulares, e a largura de cada um deve ter 10 cm a mais que a altura.

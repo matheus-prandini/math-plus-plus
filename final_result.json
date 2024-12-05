@@ -1,0 +1,184 @@
+{
+  "items": [
+    {
+      "question": "Treasure Island Adventure: You are an explorer looking for treasures hidden on five different islands. Each island has a certain number of hidden coins. However, to protect your treasures from pirates, you must calculate the total number of coins on each island, ensuring your operations are correct. Use Scratch to create a program that calculates the total coins for islands with assigned values, and use loops to repeat your calculations for all islands. Ensure that your program only displays the correct sum for each island without unnecessary operations. Can you find all the treasures correctly and avoid pirate traps?",
+      "math_reasoning": "To solve this problem, we must first identify the number of hidden coins on each island. Let's assume we have five variables representing the coins on each island: coins_island1, coins_island2, coins_island3, coins_island4, coins_island5. Using Scratch, you can create a list or array to store these values. Then, utilize a loop (such as a 'for' loop) to iterate through this list. During each iteration, the loop will add the value of the current item's coins to a running total. Finally, each iteration will output the total number of coins for the respective island. This approach ensures operations are streamlined, and only the correct sum is displayed for each island without additional redundant calculations.",
+      "math_solution": "Using Scratch, implement a program that initializes variables for the number of coins on each island. Then, create a loop to iterate through each island and calculate the sum of coins. The program should print the total coins for each island as it finishes each loop iteration. Ensure that each value corresponds accurately to the assigned values of coins for the islands.",
+      "scratch_reasoning": "In Scratch, we will use a list to hold the number of coins on each of the five islands. We will then create a 'for each item in list' loop to iterate over this list. For each item in the list, we retrieve its value and print it as the total coins for that island. This approach ensures simplicity and clarity, requiring no additional calculations as each island's coin count is predetermined and displayed directly.",
+      "scratch_solution": {
+        "variables": {
+          "coins_on_islands": [
+            18,
+            27,
+            34,
+            45,
+            50
+          ],
+          "index": 0
+        },
+        "blocks": [
+          {
+            "event": "when green flag clicked",
+            "actions": [
+              {
+                "type": "repeat until",
+                "condition": {
+                  "operator": ">",
+                  "operands": [
+                    {
+                      "variable": "index"
+                    },
+                    4
+                  ]
+                },
+                "actions": [
+                  {
+                    "type": "say",
+                    "message": "Island coins are: coins_On_islands [ index ]"
+                  },
+                  {
+                    "type": "change",
+                    "variable": "index",
+                    "by": 1
+                  }
+                ]
+              },
+              {
+                "type": "say",
+                "message": "All islands accounted for!"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "Candy Factory Challenge: In the candy factory, you are tasked with packaging candies where each package contains the same number of candies. Sometimes, the machine malfunctions, causing packages to have incorrect numbers. Use Scratch to design a simulation that uses variables to store the correct number of candies per package and correct any mismatches automatically using loops and conditions. Your challenge is to determine the maximum number of correct packages you can create and prevent candy wastage. Will your packing skills help run the factory smoothly?",
+      "math_reasoning": "This problem involves ensuring each package contains a precise number of candies. We can simulate this using Scratch by defining variables for the 'correct number of candies per package' and another for 'current candies in a package.' Use a loop to simulate the packing process. Within the loop, utilize conditions to check if the number of candies in a package matches the correct number. If a mismatch is detected, adjust the count accordingly to prevent candy wastage. Count the packages that meet the correct criteria, which represents the maximum number of correct packages producible without wastage.",
+      "math_solution": "Use Scratch to define the number of candies each package should contain. Create a loop that simulates packing, along with a condition that verifies if each package has the correct number of candies. Adjust the number accordingly for each package in the loop. Output the count of correctly packed packages at the end, representing the maximum number without wastage.",
+      "scratch_reasoning": "In Scratch, simulate candy packing by using variables for 'correct_candies_per_package' and 'current_candies.' A loop is used to simulate repeated attempts to pack candies. Within the loop, a condition checks if the current number of candies matches the correct number. If not, it adjusts the package to make it correct, and if correct, it increments the counter of completed packages. This loop continues for a set number of attempts, and then it reports how many perfect packages were made.",
+      "scratch_solution": {
+        "variables": {
+          "correct_candies_per_package": 10,
+          "current_candies": 0,
+          "correct_packages": 0,
+          "attempts": 0
+        },
+        "blocks": [
+          {
+            "event": "when green flag clicked",
+            "actions": [
+              {
+                "type": "repeat until",
+                "condition": {
+                  "operator": "=",
+                  "operands": [
+                    {
+                      "variable": "attempts"
+                    },
+                    10
+                  ]
+                },
+                "actions": [
+                  {
+                    "type": "change",
+                    "variable": "current_candies",
+                    "by": "pick random 5 to 15"
+                  },
+                  {
+                    "type": "if",
+                    "condition": {
+                      "operator": "=",
+                      "operands": [
+                        {
+                          "variable": "current_candies"
+                        },
+                        {
+                          "variable": "correct_candies_per_package"
+                        }
+                      ]
+                    },
+                    "actions": [
+                      {
+                        "type": "change",
+                        "variable": "correct_packages",
+                        "by": 1
+                      },
+                      {
+                        "type": "say",
+                        "message": "A perfect package was made!"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "change",
+                    "variable": "attempts",
+                    "by": 1
+                  }
+                ]
+              },
+              {
+                "type": "say",
+                "message": "Correct packages made: correct_packages"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "Alien Code Jam: Aliens have invaded your computer's logic! They're confusing your calculations by adding too many steps. Your mission is to help the computer solve a simple arithmetic puzzle using the least number of code commands. Implement in Scratch a function that sums a set of numbers using loops efficiently while avoiding any unnecessary commands. Can you optimize the calculation and outsmart the alien interference?",
+      "math_reasoning": "To achieve an optimized solution, identify the set of numbers that need to be summed. Use a Scratch program to initialize a variable that stores the total sum. Then, use a loop to iterate over the set of numbers, adding each number to the total sum variable during each loop iteration. Ensure that the loop is set to the correct count of iterations based on the number of elements in the dataset. Avoid any extra code or steps that do not contribute directly to the sum calculation.",
+      "math_solution": "Implement a Scratch program that initializes a 'total' variable set to zero. Iterate over your set of numbers with a loop. During each iteration, add the current number to the 'total' variable. Continue until all numbers have been processed. Finally, display the 'total' to show the sum of the numbers. This approach minimizes steps and ensures efficiency against unnecessary alien-induced logic disruptions.",
+      "scratch_reasoning": "In Scratch, use a list to hold the numbers that need to be summed. Initialize a variable 'total' to store the sum. Use a 'repeat' loop to iterate over each number in the list, adding it to the 'total' variable. After the loop completes, display the total sum with a 'say' block, ensuring efficient and optimal calculations with minimal additional steps.",
+      "scratch_solution": {
+        "variables": {
+          "numbers": [
+            5,
+            12,
+            8,
+            10,
+            6
+          ],
+          "total": 0,
+          "index": 0
+        },
+        "blocks": [
+          {
+            "event": "when green flag clicked",
+            "actions": [
+              {
+                "type": "repeat until",
+                "condition": {
+                  "operator": ">",
+                  "operands": [
+                    {
+                      "variable": "index"
+                    },
+                    4
+                  ]
+                },
+                "actions": [
+                  {
+                    "type": "change",
+                    "variable": "total",
+                    "by": "numbers [ index ]"
+                  },
+                  {
+                    "type": "change",
+                    "variable": "index",
+                    "by": 1
+                  }
+                ]
+              },
+              {
+                "type": "say",
+                "message": "The total sum is: total"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

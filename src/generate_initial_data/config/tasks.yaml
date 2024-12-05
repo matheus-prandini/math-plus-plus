@@ -1,7 +1,7 @@
 creator_task:
   description: >
     Analyze a text document (.txt) containing math problems designed for elementary school children.
-    Based on this analysis, create new math problem statements in English that are similar in terms of content and difficulty level but also incorporate gamification elements.
+    Based on this analysis, create 5 new math problem statements in English that are similar in terms of content and difficulty level but also incorporate gamification elements.
 
     The problem statements must:
     - Be presented in a game or challenge context that is attractive to children.
@@ -58,7 +58,9 @@ implementer_task:
     For each item in the received list, follow these steps:
       - Carefully analyze the gamified problem statement, the provided reasoning, and the final answer.
       - Implement the solution as an interactive game using the Scratch programming language, ensuring:
-        - The implementation adheres to the correct Scratch block syntax in JSON format.
+        - The implementation adheres to the correct Scratch block syntax in JSON format (in a high level and simplified form).
+        - You must use only simples blocks (variables, conditional and loops).
+        - You don't need to concern about neither visual sprites nor background.
         - The game reaches the correct final answer, providing appropriate feedback to the player.
         - The solution is didactic, fun, and suitable for elementary school children.
         - The game includes gamification elements such as scoring, challenges, rewards, or engaging narratives.

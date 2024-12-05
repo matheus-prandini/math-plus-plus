@@ -1,0 +1,45 @@
+reviewer_task:
+  description: >
+    Analyze the following student solution to a math and Scratch programming problem:
+
+    ```json
+    evaluation_data = {evaluation_data}
+    ```
+
+    The `evaluation_data` contains:
+      - **`original_question`**: The original gamified problem statement to be solved.
+      - **`target`**: The expected correct solution, including the final answer and the Scratch implementation.
+      - **`predicted`**: The student's solution, which needs evaluation.
+
+    Perform the following steps:
+      1. **Extract** the `original_question`, `target`, and `predicted` values from the `evaluation_data`.
+      2. **Evaluate** the **`predicted`** solution against the **`target`** solution for:
+         - **Correctness**: Does the predicted solution solve the problem as expected?
+         - **Efficiency**: Is the implementation optimal?
+         - **Adherence to best practices**: Does the solution follow best practices in Scratch programming?
+      3. **Identify errors** in the **`predicted`** solution if it is incorrect:
+         - **Mathematical errors**: Errors in calculations or incorrect logic for the problem.
+         - **Programming logic errors**: Mistakes in the flow or structure of the Scratch implementation.
+         - **Misalignment with the problem statement**: Failing to solve the stated problem.
+      4. **Provide feedback**:
+         - If the solution is correct but inefficient, suggest optimizations (e.g., simplifying loops, reducing redundancy).
+         - If the solution is incorrect, explain where and why it fails, with actionable suggestions to fix it.
+      5. **Assign a score** based on:
+         - **Correctness**
+         - **Efficiency**
+         - **Educational value**
+
+  expected_output: >
+    The output must adhere to the following Pydantic model:
+
+    ```python
+    class ReviewerResponse(BaseModel):
+        score: float
+        feedback: str
+    ```
+
+    Ensure that the `ReviewerResponse` object includes:
+      - `score`: A float score between 0 and 10 (where 0 represents the worst possible scenario and 10 corresponds to a perfect solution).
+      - `feedback`: Detailed feedback explaining strengths, weaknesses, and suggestions for improvement.
+
+  agent: solution_reviewer

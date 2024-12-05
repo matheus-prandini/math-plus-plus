@@ -1,0 +1,121 @@
+{
+  "items": [
+    {
+      "question": "1. Help the Magic Grower create the tallest beanstalk! If you water the beanstalk every day for a week, it grows by 3 units each day. Use Scratch to create a game where a variable keeps track of the growth each day and a loop repeats for 7 days. How tall is the beanstalk at the end of the week?",
+      "reasoning": "The problem asks us to calculate the growth of a beanstalk over a week, growing 3 units each day. The total growth is calculated by multiplying the daily growth by the number of days: 3 units/day * 7 days = 21 units.",
+      "final_answer": "21 units",
+      "solution": {
+        "variables": {
+          "growth": 0
+        },
+        "blocks": [
+          {
+            "repeat": 7
+          },
+          {
+            "change growth by": 3
+          }
+        ]
+      },
+      "is_valid": true
+    },
+    {
+      "question": "2. The Treasure Seeker needs to collect exactly 15 gold coins. Each time you perform a cool dance in Scratch, you find between 1 to 4 coins, but the total must not exceed 15. Use conditions to ensure the treasure count is exactly 15. How many cool dances do you need to do to find precisely 15 coins?",
+      "reasoning": "To determine how many dances are needed to reach exactly 15 coins, we simulate the dance actions in Scratch, using random coin rewards to test conditions to equal or just reach 15 coins. This problem involves using random number generation and conditional checks in Scratch, perhaps iterating through multiple scenarios.",
+      "final_answer": "The number of dances required to exactly reach 15 coins can vary due to randomness, thus requires iteration and conditional checks.",
+      "solution": {
+        "variables": {
+          "coins": 0,
+          "dances": 0
+        },
+        "blocks": [
+          {
+            "repeat until": {
+              "equals": [
+                "coins",
+                15
+              ]
+            }
+          },
+          {
+            "change dances by": 1
+          },
+          {
+            "set coins to": {
+              "add": [
+                "coins",
+                {
+                  "pick random": [
+                    1,
+                    4
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "if": {
+              "greater than": [
+                "coins",
+                15
+              ]
+            },
+            "then": [
+              {
+                "set coins to": 15
+              }
+            ]
+          }
+        ]
+      },
+      "is_valid": true
+    },
+    {
+      "question": "3. Alien Friend is coming for a visit and brings a mystery snack! Each alien friend adds '2 times 5' pieces of snack in your basket. Write a Scratch program using loops to find out how much snack you have if there are 4 aliens. What is the total number of snacks in your basket?",
+      "reasoning": "Each alien adds 2 times 5 snacks, which is 10 snacks each. With 4 aliens, the total snacks can be calculated as 4 aliens * 10 snacks/alien = 40 snacks.",
+      "final_answer": "40 snacks",
+      "solution": {
+        "variables": {
+          "snacks": 0
+        },
+        "blocks": [
+          {
+            "repeat": 4
+          },
+          {
+            "change snacks by": 10
+          }
+        ]
+      },
+      "is_valid": true
+    },
+    {
+      "question": "5. The Pizza Party Robot can make 3 pizzas in one cycle and you want to distribute exactly 12 pizzas at your party. Use Scratch to design a loop where the robot keeps iterating to produce 3 pizzas per cycle. How many cycles should the robot go through to get exactly 12 pizzas?",
+      "reasoning": "We're asked to calculate how many cycles are needed to produce 12 pizzas, given that each cycle produces 3 pizzas. This is solved by dividing the total pizzas required by the number of pizzas produced in one cycle: 12 pizzas / 3 pizzas/cycle = 4 cycles.",
+      "final_answer": "4 cycles",
+      "solution": {
+        "variables": {
+          "pizzas": 0,
+          "cycles": 0
+        },
+        "blocks": [
+          {
+            "repeat until": {
+              "equals": [
+                "pizzas",
+                12
+              ]
+            }
+          },
+          {
+            "change cycles by": 1
+          },
+          {
+            "change pizzas by": 3
+          }
+        ]
+      },
+      "is_valid": true
+    }
+  ]
+}

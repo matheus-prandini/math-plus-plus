@@ -1,0 +1,29 @@
+profile_analysis_task:
+  description: >
+
+    ```json
+    feedbacks = {feedbacks}
+    ```
+    Analyze a list of reviewed student solutions with feedback and provide insights and grouped recommendations.
+    For the entire dataset:
+      1. Identify global patterns of errors:
+         - Common mathematical errors.
+         - Frequent programming logic issues.
+         - Recurring inefficiencies.
+      2. Highlight fragile areas in the student's problem-solving abilities.
+      3. Provide a detailed aggregated report summarizing:
+         - The most frequent types of errors observed across the dataset.
+         - Areas where the student/model demonstrates fragility in problem-solving or programming logic.
+         - Suggested training strategies and tailored problem types to address identified weaknesses.
+
+  expected_output: >
+    The output must adhere to the following Pydantic model:
+
+    ```python
+    class AnalysisReponse(BaseModel):
+      common_errors: str
+      weaknesses: str
+      recommendations: str
+    ```
+
+  agent: profile_analyzer

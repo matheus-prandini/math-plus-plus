@@ -38,14 +38,13 @@ class SolverValidationResponse(BaseModel):
 	items: list[ValidationItem]
 
 @CrewBase
-class MathPlusPlusCrew():
-	"""MathPlusPlus crew"""
+class GenerateAdaptiveDataCrew():
+	"""GenerateAdaptiveData crew"""
 
 	@agent
-	def creator(self) -> Agent:
+	def adaptive_creator(self) -> Agent:
 		return Agent(
-			config=self.agents_config['creator'],
-			# tools=[FileReadTool(file_path='/Users/mathe/Doutorado/github/math-plus-plus/DESCRITORES DE MATEMÁTICA 9 ANO.docx.txt')],
+			config=self.agents_config['adaptive_creator'],
 			verbose=True,
 			llm="gpt-4o"
 		)
@@ -75,20 +74,20 @@ class MathPlusPlusCrew():
 		)
 
 	@task
-	def creator_task(self) -> Task:
+	def adaptive_creator_task(self) -> Task:
 		return Task(
-			config=self.tasks_config['creator_task'],
+			config=self.tasks_config['adaptive_creator_task'],
 			output_json=CreatorResponse,
-			output_file='creator.md'
+			# output_file='creator.md'
 		)
 
 	@task
 	def validator_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['validator_task'],
-			context=[self.creator_task()],
+			context=[self.adaptive_creator_task()],
 			output_json=ValidatorResponse,
-			output_file='questions.md'
+			# output_file='questions.md'
 		)
 
 	@task
@@ -97,7 +96,7 @@ class MathPlusPlusCrew():
 			config=self.tasks_config['implementer_task'],
 			context=[self.validator_task()],
 			output_json=ImplementerResponse,
-			output_file='scratch_solutions.md'
+			# output_file='scratch_solutions.md'
 		)
 
 	@task
@@ -106,12 +105,12 @@ class MathPlusPlusCrew():
 			config=self.tasks_config['scratch_validator_task'],
 			context=[self.implementer_task()],
 			output_json=SolverValidationResponse,
-			output_file='final_result.md'
+			output_file='adaptive_result.json'
 		)
 
 	@crew
 	def crew(self) -> Crew:
-		"""Creates the MathPlusPlus crew"""
+		"""Creates the GenerateAdaptiveData crew"""
 		return Crew(
 			agents=self.agents, # Automatically created by the @agent decorator
 			tasks=self.tasks, # Automatically created by the @task decorator
