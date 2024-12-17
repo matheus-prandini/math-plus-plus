@@ -8,38 +8,56 @@ reviewer_task:
 
     The `evaluation_data` contains:
       - **`original_question`**: The original gamified problem statement to be solved.
-      - **`target`**: The expected correct solution, including the final answer and the Scratch implementation.
-      - **`predicted`**: The student's solution, which needs evaluation.
+      - **`target`**: The expected correct solution, including the mathematical reasoning, final answer, and the Scratch implementation.
+      - **`predicted`**: The student's solution, including their mathematical reasoning, final answer, and Scratch implementation.
 
     Perform the following steps:
       1. **Extract** the `original_question`, `target`, and `predicted` values from the `evaluation_data`.
-      2. **Evaluate** the **`predicted`** solution against the **`target`** solution for:
-         - **Correctness**: Does the predicted solution solve the problem as expected?
-         - **Efficiency**: Is the implementation optimal?
-         - **Adherence to best practices**: Does the solution follow best practices in Scratch programming?
-      3. **Identify errors** in the **`predicted`** solution if it is incorrect:
-         - **Mathematical errors**: Errors in calculations or incorrect logic for the problem.
-         - **Programming logic errors**: Mistakes in the flow or structure of the Scratch implementation.
-         - **Misalignment with the problem statement**: Failing to solve the stated problem.
-      4. **Provide feedback**:
-         - If the solution is correct but inefficient, suggest optimizations (e.g., simplifying loops, reducing redundancy).
-         - If the solution is incorrect, explain where and why it fails, with actionable suggestions to fix it.
-      5. **Assign a score** based on:
-         - **Correctness**
-         - **Efficiency**
-         - **Educational value**
+      2. **Check Predicted Response Structure**
+         - Verify whether the fields math_reasoning, math_solution, scratch_reasoning e scratch_solution exists in the predicted response.
+         - Evaluate the predicted mathematical solution and the predicted scratch implementation based on the structure. 
+      3. **Evaluate the Predicted Mathematical Solution**:
+         - **Correctness**: Does the mathematical reasoning and final answer match the expected solution?
+         - **Clarity**: Is the reasoning logical and well-explained?
+         - **Alignment**: Does the solution address the problem as stated?
+      4. **Evaluate the Predicted Scratch Implementation**:
+         - **Correctness**: Does the Scratch implementation solve the problem as expected?
+         - **Efficiency**: Is the implementation optimal (e.g., minimal redundancy, efficient use of loops and variables)?
+         - **Best Practices**: Does the solution follow Scratch programming standards (e.g., clear use of blocks, no unnecessary complexity)?
+      5. **Identify Errors**:
+         - For the mathematical solution: Highlight calculation mistakes or logical errors in reasoning.
+         - For the Scratch implementation: Highlight programming logic errors, inefficiencies, or misalignments with the problem.
+      6. **Provide Feedback**:
+         - Suggest ways to improve clarity and correctness for the mathematical solution.
+         - Recommend optimizations or corrections for the Scratch implementation.
+      7. **Assign Scores**:
+         - Provide separate scores for the predicted mathematical solution and Scratch implementation.
 
   expected_output: >
     The output must adhere to the following Pydantic model:
 
     ```python
     class ReviewerResponse(BaseModel):
-        score: float
-        feedback: str
+        question: str
+        predicted_math_reasoning: str
+        predicted_math_solution: str
+        predicted_scratch_reasoning: str
+        predicted_scratch_solution: str
+        math_feedback: str
+        math_score: float
+        scratch_feedback: str
+        scratch_score: float
     ```
 
     Ensure that the `ReviewerResponse` object includes:
-      - `score`: A float score between 0 and 10 (where 0 represents the worst possible scenario and 10 corresponds to a perfect solution).
-      - `feedback`: Detailed feedback explaining strengths, weaknesses, and suggestions for improvement.
+      - `question`: The original problem statement.
+      - `predicted_math_reasoning`: The predicted mathematical reasoning provided to solve the problem.
+      - `predicted_math_solution`: The predicted final answer to the problem (only the answer, not the reasoning).
+      - `predicted_scratch_reasoning`: The predicted explanation of how the problem was implemented in Scratch, including the logic behind the blocks.
+      - `predicted_scratch_solution`: The predicted representation of the Scratch implementation in JSON block syntax.
+      - `math_feedback`: Detailed feedback explaining strengths, weaknesses, and suggestions for improvement in the predicted mathematical solution.
+      - `math_score`: A float score (0-10) for the predicted mathematical solution.
+      - `scratch_feedback`: Detailed feedback explaining strengths, weaknesses, and suggestions for improvement in the predicted Scratch implementation.
+      - `scratch_score`: A float score (0-10) for the predicted Scratch implementation.
 
   agent: solution_reviewer
