@@ -1,15 +1,16 @@
 import json
 from openai import OpenAI
 from dotenv import load_dotenv
-from generate_initial_data_2.crew import GenerateInitialDataCrew
-from generate_adaptive_data_2.crew import GenerateAdaptiveDataCrew
+from generate_initial_data.crew import GenerateInitialDataCrew
+from generate_adaptive_data.crew import GenerateAdaptiveDataCrew
 from evaluate_knowledge.crew import EvaluateKnowledgeCrew
 from report_generator.crew import ReportGeneratorCrew
 
 load_dotenv()
 
+
 def generate_initial_training_data():
-    N_ITERATIONS = 10
+    N_ITERATIONS = 8
     all_data = []
     for _ in range(N_ITERATIONS):
         GenerateInitialDataCrew().crew().kickoff()
@@ -21,11 +22,20 @@ def generate_initial_training_data():
     for item in all_data:
         system_message = {"role": "system", "content": "You are a math and Scratch programming assistant. You are a developer and game designer specializing in MIT Scratch. You receive a gamified math problem and your task is to solve the problem and to implement the correct solution as an interactive game using a high level and simplified Scratch's block syntax in JSON format, ensuring it solves the problem, reaches the final answer, and provides a fun and educational experience."}
         user_message = {"role": "user", "content": item['question']}
-        final_answer_str = item['final_answer']
-        scratch_json_str = json.dumps(item['solution'], ensure_ascii=False)
+        math_reasoning = item['math_reasoning']
+        math_solution = item['math_solution']
+        scratch_reasoning = item['scratch_reasoning']
+        scratch_solution = item['scratch_solution']
+        assistant_item = {
+            "math_reasoning": math_reasoning,
+            "math_solution": math_solution,
+            "scratch_reasoning": scratch_reasoning,
+            "scratch_solution": scratch_solution
+            
+        }
         assistant_message = {
             "role": "assistant",
-            "content": f"Final Answer: {final_answer_str} \n Scratch Solution: Here's the Scratch solution as a JSON: {scratch_json_str}"
+            "content": json.dumps(assistant_item, ensure_ascii=False)
         }
         training_data.append({"messages": [system_message, user_message, assistant_message]})
 
@@ -37,65 +47,7 @@ def generate_initial_training_data():
 
     print(f"Training data saved to {output_file}")
 
-def generate_initial_training_data_2():
-    N_ITERATIONS = 10
-    all_data = []
-    for _ in range(N_ITERATIONS):
-        GenerateInitialDataCrew().crew().kickoff()
-        with open("/Users/mathe/Doutorado/github/math-plus-plus/final_result.json", 'r') as file:
-            current_data = json.load(file)
-            all_data.extend([item for item in current_data["items"]])
-    
-    training_data = []
-    for item in all_data:
-        system_message = {"role": "system", "content": "You are a math and Scratch programming assistant. You are a developer and game designer specializing in MIT Scratch. You receive a gamified math problem and your task is to solve the problem and to implement the correct solution as an interactive game using a high level and simplified Scratch's block syntax in JSON format, ensuring it solves the problem, reaches the final answer, and provides a fun and educational experience."}
-        user_message = {"role": "user", "content": item['question']}
-        final_answer_str = item['math_solution']
-        scratch_json_str = json.dumps(item['scratch_solution'], ensure_ascii=False)
-        assistant_message = {
-            "role": "assistant",
-            "content": f"Final Answer: {final_answer_str} \n Scratch Solution: Here's the Scratch solution as a JSON: {scratch_json_str}"
-        }
-        training_data.append({"messages": [system_message, user_message, assistant_message]})
-
-    output_file = "/Users/mathe/Doutorado/github/math-plus-plus/training_data.jsonl"
-    with open(output_file, 'w', encoding='utf-8') as file:
-        for entry in training_data:
-            json.dump(entry, file, ensure_ascii=False)
-            file.write('\n')
-
-    print(f"Training data saved to {output_file}")
-
-def generate_initial_validation_data():
-    N_ITERATIONS = 2
-    all_data = []
-    for _ in range(N_ITERATIONS):
-        GenerateInitialDataCrew().crew().kickoff()
-        with open("/Users/mathe/Doutorado/github/math-plus-plus/final_result.json", 'r') as file:
-            current_data = json.load(file)
-            all_data.extend([item for item in current_data["items"]])
-    
-    validation_data = []
-    for item in all_data:
-        system_message = {"role": "system", "content": "You are a math and Scratch programming assistant. You are a developer and game designer specializing in MIT Scratch. You receive a gamified math problem and your task is to solve the problem and to implement the correct solution as an interactive game using a high level and simplified Scratch's block syntax in JSON format, ensuring it solves the problem, reaches the final answer, and provides a fun and educational experience."}
-        user_message = {"role": "user", "content": item['question']}
-        final_answer_str = item['final_answer']
-        scratch_json_str = json.dumps(item['solution'], ensure_ascii=False)
-        assistant_message = {
-            "role": "assistant",
-            "content": f"Final Answer: {final_answer_str} \n Scratch Solution: Here's the Scratch solution as a JSON: {scratch_json_str}"
-        }
-        validation_data.append({"messages": [system_message, user_message, assistant_message]})
-
-    output_file = "/Users/mathe/Doutorado/github/math-plus-plus/validation_data.jsonl"
-    with open(output_file, 'w', encoding='utf-8') as file:
-        for entry in validation_data:
-            json.dump(entry, file, ensure_ascii=False)
-            file.write('\n')
-
-    print(f"Validation data saved to {output_file}")
-
-def generate_initial_validation_data_2():
+def generate_initial_test_data():
     N_ITERATIONS = 2
     all_data = []
     for _ in range(N_ITERATIONS):
@@ -104,52 +56,71 @@ def generate_initial_validation_data_2():
             current_data = json.load(file)
             all_data.extend([item for item in current_data["items"]])
 
-    validation_data = []
+    test_data = []
     for item in all_data:
         system_message = {"role": "system", "content": "You are a math and Scratch programming assistant. You are a developer and game designer specializing in MIT Scratch. You receive a gamified math problem and your task is to solve the problem and to implement the correct solution as an interactive game using a high level and simplified Scratch's block syntax in JSON format, ensuring it solves the problem, reaches the final answer, and provides a fun and educational experience."}
         user_message = {"role": "user", "content": item['question']}
-        final_answer_str = item['math_solution']
-        scratch_json_str = json.dumps(item['scratch_solution'], ensure_ascii=False)
+        math_reasoning = item['math_reasoning']
+        math_solution = item['math_solution']
+        scratch_reasoning = item['scratch_reasoning']
+        scratch_solution = item['scratch_solution']
+        assistant_item = {
+            "math_reasoning": math_reasoning,
+            "math_solution": math_solution,
+            "scratch_reasoning": scratch_reasoning,
+            "scratch_solution": scratch_solution
+            
+        }
         assistant_message = {
             "role": "assistant",
-            "content": f"Final Answer: {final_answer_str} \n Scratch Solution: Here's the Scratch solution as a JSON: {scratch_json_str}"
+            "content": json.dumps(assistant_item, ensure_ascii=False)
         }
-        validation_data.append({"messages": [system_message, user_message, assistant_message]})
+        test_data.append({"messages": [system_message, user_message, assistant_message]})
 
-    output_file = "/Users/mathe/Doutorado/github/math-plus-plus/validation_data.jsonl"
+    output_file = "/Users/mathe/Doutorado/github/math-plus-plus/test_data.jsonl"
     with open(output_file, 'w', encoding='utf-8') as file:
-        for entry in validation_data:
+        for entry in test_data:
             json.dump(entry, file, ensure_ascii=False)
             file.write('\n')
 
     print(f"Validation data saved to {output_file}")
 
 def generate_adaptive_training_data():
-    N_ITERATIONS = 5
-
-    # with open("/Users/mathe/Doutorado/github/math-plus-plus/report_result.json", 'r') as file:
-    #     report_data = json.load(file)
-
-    # inputs = {
-    #     "report": report_data
-    # }
+    N_ITERATIONS = 3
 
     all_data = []
     for _ in range(N_ITERATIONS):
-        GenerateAdaptiveDataCrew().crew().kickoff()
-        with open("/Users/mathe/Doutorado/github/math-plus-plus/adaptive_result.json", 'r') as file:
-            current_data = json.load(file)
-            all_data.extend([item for item in current_data["items"]])
+        with open("/Users/mathe/Doutorado/github/math-plus-plus/report_result.json", 'r') as file:
+            report_data = json.load(file) 
+
+        for elem in report_data['insights']:
+            insight_inputs = {
+                "insight": elem
+            }
+            print(insight_inputs)
+            GenerateAdaptiveDataCrew().crew().kickoff(inputs=insight_inputs)
+            with open("/Users/mathe/Doutorado/github/math-plus-plus/adaptive_result.json", 'r') as file:
+                current_data = json.load(file)
+                all_data.extend([item for item in current_data["items"]])
     
     training_data = []
     for item in all_data:
         system_message = {"role": "system", "content": "You are a math and Scratch programming assistant. You are a developer and game designer specializing in MIT Scratch. You receive a gamified math problem and your task is to solve the problem and to implement the correct solution as an interactive game using a high level and simplified Scratch's block syntax in JSON format, ensuring it solves the problem, reaches the final answer, and provides a fun and educational experience."}
         user_message = {"role": "user", "content": item['question']}
-        final_answer_str = item['math_solution']
-        scratch_json_str = json.dumps(item['scratch_solution'], ensure_ascii=False)
+        math_reasoning = item['math_reasoning']
+        math_solution = item['math_solution']
+        scratch_reasoning = item['scratch_reasoning']
+        scratch_solution = item['scratch_solution']
+        assistant_item = {
+            "math_reasoning": math_reasoning,
+            "math_solution": math_solution,
+            "scratch_reasoning": scratch_reasoning,
+            "scratch_solution": scratch_solution
+            
+        }
         assistant_message = {
             "role": "assistant",
-            "content": f"Final Answer: {final_answer_str} \n Scratch Solution: Here's the Scratch solution as a JSON: {scratch_json_str}"
+            "content": json.dumps(assistant_item, ensure_ascii=False)
         }
         training_data.append({"messages": [system_message, user_message, assistant_message]})
 
@@ -159,10 +130,10 @@ def generate_adaptive_training_data():
             json.dump(entry, file, ensure_ascii=False)
             file.write('\n')
 
-    print(f"Training data saved to {output_file}")
+    print(f"Adaptive training data saved to {output_file}")
 
 def get_validation_inference(model_name = "gpt-3.5-turbo-0125"):
-    with open("/Users/mathe/Doutorado/github/math-plus-plus/validation_data.jsonl", "r") as f:
+    with open("/Users/mathe/Doutorado/github/math-plus-plus/test_data.jsonl", "r") as f:
         current_data = [json.loads(line) for line in f]
 
     inference_data = []
@@ -215,12 +186,12 @@ def get_validation_inference(model_name = "gpt-3.5-turbo-0125"):
     print(f"Inference data saved to {output_file}")
 
 def evaluate_inferences():
-    with open("/Users/mathe/Doutorado/github/math-plus-plus/validation_data.jsonl", "r") as f:
+    with open("/Users/mathe/Doutorado/github/math-plus-plus/test_data.jsonl", "r") as f:
         target_data = [json.loads(line) for line in f]
     with open("/Users/mathe/Doutorado/github/math-plus-plus/inference_data.jsonl", "r") as f:
         predicted_data = [json.loads(line) for line in f]
 
-    assert len(target_data) == len(predicted_data), f"inference_data must contains the same number of elements ({len(predicted_data)}) as validation_data ({len(target_data)})"
+    assert len(target_data) == len(predicted_data), f"inference_data must contains the same number of elements ({len(predicted_data)}) as test_data ({len(target_data)})"
 
     evaluation_data = []
     for i in range(len(target_data)):
@@ -262,10 +233,12 @@ def evaluate_inferences():
     ReportGeneratorCrew().crew().kickoff(inputs=report_generator_inputs)
 
     print(f"len score data: {score_data}")
-    all_scores = [item["score"] for item in score_data]
+    math_scores = [item["math_score"] for item in score_data]
+    scratch_scores = [item["scratch_score"] for item in score_data]
+    all_scores = [(math_scores[i] + scratch_scores[i]) / 2 for i in range(len(math_scores))]
     mean_score = sum(all_scores) / len(all_scores)
 
-    print(f"Results: \n\n All Scores: {all_scores} \n Mean Score: {mean_score}")
+    print(f"Results: \n\n All Math Scores: {math_scores} \n All Scratch Scores: {scratch_scores} \n All Combined Scores: {all_scores} \n Mean Score: {mean_score}")
 
 def create_finetuning_file(filepath):
     client = OpenAI()
@@ -283,19 +256,27 @@ def run_training_epoch(file_id, model_name = "gpt-3.5-turbo-0125"):
         model=model_name
     )
 
-# create_finetuning_file(filepath="/Users/mathe/Doutorado/github/math-plus-plus/extended_training_data.jsonl")
+# create_finetuning_file(filepath="/Users/mathe/Doutorado/github/math-plus-plus/exp1_extended_training_data.jsonl")
 
 # run_training_epoch(
-#     file_id="file-YV4DgmECscsEoFVgnvBXEr",
-#     model_name="ft:gpt-3.5-turbo-0125:neospace::AainbYqn"
+#     file_id="file-DtpLdkLM78Hh8qENM2ECeK",
+#     model_name="ft:gpt-3.5-turbo-0125:neospace::Aax5ryL5"
 # )
 
 # run_training_epoch(
-#     file_id="file-YV4DgmECscsEoFVgnvBXEr",
+#     file_id="file-T4hggA3a38GQiAoT7V5iih",
 # )
 
-# get_validation_inference(model_name="ft:gpt-3.5-turbo-0125:neospace::AajGUS4p")
+# get_validation_inference()
+
+# evaluate_inferences()
+
+# get_validation_inference(model_name="ft:gpt-3.5-turbo-0125:neospace::AfE1u9JO")
 
 evaluate_inferences()
 
 # generate_adaptive_training_data()
+
+# generate_initial_training_data()
+
+# generate_initial_test_data()

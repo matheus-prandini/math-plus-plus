@@ -1,4 +1,4 @@
-from crewai import Agent, Crew, Process, Task
+from crewai import LLM, Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from pydantic import BaseModel
 from crewai_tools import FileReadTool
@@ -10,13 +10,15 @@ from crewai_tools import FileReadTool
 # from crewai_tools import SerperDevTool
 
 class ReviewerResponse(BaseModel):
-	score: float
-	feedback: str
-
-class AnalysisReponse(BaseModel):
-	common_errors: str
-	weaknesses: str
-	recommendations: str
+	question: str
+	predicted_math_reasoning: str
+	predicted_math_solution: str
+	predicted_scratch_reasoning: str
+	predicted_scratch_solution: str
+	math_feedback: str
+	math_score: float
+	scratch_feedback: str
+	scratch_score: float
 
 
 @CrewBase
@@ -28,7 +30,11 @@ class EvaluateKnowledgeCrew():
 		return Agent(
 			config=self.agents_config['solution_reviewer'],
 			verbose=True,
-			llm="gpt-4o"
+			llm=LLM(
+       			model="gpt-4o",
+				temperature=0.0,
+				seed=42
+			)
 		)
 
 	@task

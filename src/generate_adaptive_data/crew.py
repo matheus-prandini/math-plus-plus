@@ -10,32 +10,24 @@ class CreatorItem(BaseModel):
 class CreatorResponse(BaseModel):
 	items: list[CreatorItem]
 
-class Item(BaseModel):
+class MathSolverItem(BaseModel):
 	question: str
-	reasoning: str
-	final_answer: str
+	math_reasoning: str
+	math_solution: str
 
-class ValidatorResponse(BaseModel):
-	items: list[Item]
+class MathSolverResponse(BaseModel):
+	items: list[MathSolverItem]
 
-class ImplementerItem(Item):
+class ScratchSolverItem(BaseModel):
 	question: str
-	reasoning: str
-	final_answer: str
-	solution: dict
+	math_reasoning: str
+	math_solution: str
+	scratch_reasoning: str
+	scratch_solution: dict
 
-class ImplementerResponse(BaseModel):
-	items: list[ImplementerItem]
+class ScratchSolverResponse(BaseModel):
+	items: list[ScratchSolverItem]
 
-class ValidationItem(BaseModel):
-	question: str
-	reasoning: str
-	final_answer: str
-	solution: dict
-	is_valid: bool
-
-class SolverValidationResponse(BaseModel):
-	items: list[ValidationItem]
 
 @CrewBase
 class GenerateAdaptiveDataCrew():
@@ -50,25 +42,17 @@ class GenerateAdaptiveDataCrew():
 		)
 
 	@agent
-	def validator(self) -> Agent:
+	def math_solver(self) -> Agent:
 		return Agent(
-			config=self.agents_config['validator'],
+			config=self.agents_config['math_solver'],
 			verbose=True,
 			llm="gpt-4o"
 		)
 
 	@agent
-	def implementer(self) -> Agent:
+	def scratch_solver(self) -> Agent:
 		return Agent(
-			config=self.agents_config['implementer'],
-			verbose=True,
-			llm="gpt-4o"
-		)
-
-	@agent
-	def scratch_validator(self) -> Agent:
-		return Agent(
-			config=self.agents_config['scratch_validator'],
+			config=self.agents_config['scratch_solver'],
 			verbose=True,
 			llm="gpt-4o"
 		)
@@ -77,34 +61,25 @@ class GenerateAdaptiveDataCrew():
 	def adaptive_creator_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['adaptive_creator_task'],
+			# tools=[FileReadTool("/Users/mathe/Doutorado/github/math-plus-plus/report_result.json")],
 			output_json=CreatorResponse,
 			# output_file='creator.md'
 		)
 
 	@task
-	def validator_task(self) -> Task:
+	def math_solver_task(self) -> Task:
 		return Task(
-			config=self.tasks_config['validator_task'],
+			config=self.tasks_config['math_solver_task'],
 			context=[self.adaptive_creator_task()],
-			output_json=ValidatorResponse,
-			# output_file='questions.md'
+			output_json=MathSolverResponse,
 		)
 
 	@task
-	def implementer_task(self) -> Task:
+	def scratch_solver_task(self) -> Task:
 		return Task(
-			config=self.tasks_config['implementer_task'],
-			context=[self.validator_task()],
-			output_json=ImplementerResponse,
-			# output_file='scratch_solutions.md'
-		)
-
-	@task
-	def scratch_validator_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['scratch_validator_task'],
-			context=[self.implementer_task()],
-			output_json=SolverValidationResponse,
+			config=self.tasks_config['scratch_solver_task'],
+			context=[self.math_solver_task()],
+			output_json=ScratchSolverResponse,
 			output_file='adaptive_result.json'
 		)
 

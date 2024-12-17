@@ -4,26 +4,60 @@ profile_analysis_task:
     ```json
     feedbacks = {feedbacks}
     ```
-    Analyze a list of reviewed student solutions with feedback and provide insights and grouped recommendations.
-    For the entire dataset:
-      1. Identify global patterns of errors:
-         - Common mathematical errors.
-         - Frequent programming logic issues.
-         - Recurring inefficiencies.
-      2. Highlight fragile areas in the student's problem-solving abilities.
-      3. Provide a detailed aggregated report summarizing:
-         - The most frequent types of errors observed across the dataset.
-         - Areas where the student/model demonstrates fragility in problem-solving or programming logic.
-         - Suggested training strategies and tailored problem types to address identified weaknesses.
+    Analyze a dataset of reviewed student solutions containing detailed feedback, and provide structured insights and actionable recommendations to address identified weaknesses. 
+
+    The purpose of this analysis is to:
+      - Identify recurring patterns of errors and fragile areas in mathematical reasoning and programming logic.
+      - Generate precise, structured feedback that directly addresses these issues. Be very specific in this part.
+      - Provide recommendations with clear examples that can guide the generation of targeted adaptive math problems.
+
+    **Analysis Requirements**:
+    1. **Identify Global Patterns of Errors**:
+       - **Mathematical Errors**:
+         - Categorize the specific types of mistakes (e.g., addition errors, difficulty with multiplication, misunderstanding constraints, or sequence handling issues).
+         - Highlight logical inconsistencies in reasoning or misinterpretation of problem requirements.
+         - Identify issues with aligning solutions to problem requirements (e.g., solving the wrong problem).
+       - **Programming Errors**:
+         - Describe inefficient practices (e.g., redundant loops, misuse of conditionals, or over-complicated logic).
+         - Pinpoint logical errors in Scratch implementations (e.g., missing conditions, incorrect use of variables).
+         - Highlight misuse or misunderstanding of Scratch blocks (e.g., failure to use loops properly).
+    2. **Highlight Fragile Areas**:
+       - Pinpoint specific areas where the student consistently struggles:
+         - **Mathematical reasoning**: Include weak understanding of arithmetic, problem decomposition, or constraint application.
+         - **Computational thinking**: Highlight difficulty in mapping problem requirements to program logic, using loops efficiently, or debugging.
+       - For each fragile area, clearly explain why these difficulties are significant and how they impact problem-solving.
+    3. **Provide Targeted Recommendations with Examples**:
+       - Generate recommendations tailored to the identified weaknesses, including:
+         - **Training Focus**: Highlight specific skills or concepts to practice (e.g., operations with fractions, constructing efficient loops).
+         - **Example Problems**: Provide concrete examples of problems that address the identified weakness. Examples should be well-structured and directly relevant to the fragile area.
+         - **Programming Practice**: Suggest ways to simplify or optimize Scratch implementations.
+
+    **Specificity and Depth**:
+    - Focus on the examples with low scores because the goal is to improve them.
+    - Ensure the analysis is extremely specific and exhaustive, leaving no ambiguity in the identified weaknesses or recommendations.
+    - Include detailed rationales for all observations, ensuring the insights can directly inform the creation of new adaptive math problems.
 
   expected_output: >
     The output must adhere to the following Pydantic model:
 
     ```python
-    class AnalysisReponse(BaseModel):
-      common_errors: str
-      weaknesses: str
-      recommendations: str
+    class AnalysisItem(BaseModel):
+      area: str
+      error_pattern: str
+      recommendation: str
+
+    class AnalysisResponse(BaseModel):
+      insights: List[AnalysisItem]
     ```
+
+    **Structure of `AnalysisResponse`**:
+    - `insights`: A list of dictionaries, each representing an identified issue and its resolution:
+      - `area`: The domain of the issue (e.g., "mathematics", "programming").
+      - `error_pattern`: A clear description of the common error or weakness observed.
+      - `recommendation`: A detailed, actionable suggestion that includes:
+        - **Training Focus**: A specific concept or skill to improve.
+        - **Example Problem**: A concrete example addressing the weakness.
+
+    The output should be a list composed of the 3 main points.
 
   agent: profile_analyzer
