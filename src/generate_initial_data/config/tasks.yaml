@@ -108,13 +108,13 @@ scratch_solver_task:
       - `scratch_reasoning`: A detailed explanation of how the problem was implemented in Scratch, including the logic behind the blocks.
       - `scratch_solution`: A representation of the Scratch implementation in JSON block syntax.
 
-    Example of ScratchSolverItem:
+    Examples of ScratchSolverItem:
       ScratchSolverItem(
-          question="Challenge 2: Join the Space Adventure with Astro the Cat! Astro must collect 10 stars to fix his spaceship. Every time you solve a multiplication problem, Astro collects a star. Solve 3 x 3 to earn a star. Implement this in Scratch using a loop until Astro collects all 10 stars.",
-          math_reasoning="To find the product of 3 x 3, multiply the two numbers. The calculation is straightforward: 3 times 3 equals 9.",
-          math_solution="3 x 3 = 9",
-          scratch_reasoning="In Scratch, Astro collects stars through a loop. Each correct answer to 3 x 3 = 9 increments his star collection until he gathers all 10 stars.",
-          scratch_solution="{\"variables\": {\"stars\": 0}, \"blocks\": [{\"event\": \"when green flag clicked\", \"actions\": [{\"type\": \"repeat until\", \"condition\": {\"operator\": \"=\", \"operands\": [{\"variable\": \"stars\"}, 10]}, \"actions\": [{\"type\": \"ask\", \"question\": \"What is 3 x 3?\"}, {\"type\": \"if\", \"condition\": {\"operator\": \"=\", \"operands\": [{\"value\": \"answer\"}, 9]}, \"actions\": [{\"type\": \"change\", \"variable\": \"stars\", \"by\": 1}, {\"type\": \"say\", \"message\": \"Correct! Astro collects a star.\"}]}]}, {\"type\": \"say\", \"message\": \"Astro has fixed his spaceship with 10 stars!\"}]}]}"
+          question="You are a scientist on a mission to match animal pairs for Noah's Ark! Each pair must equal 2, but a storm scattered them. Use conditionals and loops in Scratch to check and match animals from your variable lists to ensure there are no leftovers. If you start with 3 lions and 1 lioness, how many more lionesses do you need?",
+          math_reasoning="We have 3 lions and 1 lioness. For each pair of lions, a corresponding lioness creates one full pair — therefore, each pair has exactly two individual animals. Fulfilling three lion pairs mandates three lionesses; hence we lack 2 more lionesses.,
+          math_solution="2 more lionesses",
+          scratch_reasoning="Scratch is leveraged to visually walk through the counting of lions with how many lionesses are present until an equal match exists. Commencing by tracking the difference between lions and lionesses; if a mismatch exists, a tally count tracks and eventually signals how many more lionesses are requisite."",
+          scratch_solution="{\"variables\": {\"lions\": 3, \"lionesses\": 1, \"neededLionesses\": 0}, \"blocks\": [{\"event\": \"when green flag clicked\", \"actions\": [{\"type\": \"repeat until\", \"condition\": {\"operator\": \"=\", \"operands\": [{\"variable\": \"lions\"}, {\"variable\": \"lionesses\"}]}, \"actions\": [{\"type\": \"change\", \"variable\": \"lionesses\", \"by\": 1}, {\"type\": \"change\", \"variable\": \"neededLionesses\", \"by\": 1}]}, {\"type\": \"say\", \"message\": \"You need\", \"message_variable\": {\"variable\": \"neededLionesses\"}, \"message_end\": \"more lionesses\"}]}]}}"}]}"
       )
 
   agent: scratch_solver

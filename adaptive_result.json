@@ -1,13 +1,13 @@
 {
   "items": [
     {
-      "question": "Help Alex the Adventurer navigate through the Pixel Forest. Each step forward can be an 'add forward' (addition) or 'multiply forward' (multiplication) by a given number of steps. Can you find the right path using these operations to reach the hidden treasure hidden exactly at position 30? Use Scratch to program Alex's journey, mindful of choosing addition or multiplication wisely!",
-      "math_reasoning": "To solve this problem, we need to use a combination of addition and multiplication operations to achieve the exact position 30. We start from position 0 and can choose to add or multiply a given step value to reach 30. Let's assume the step values provided are 2, 3, and 5 (common in these gamified settings). Starting from 0, we can add 2 to reach 2. Then multiply by 5 to reach 10. Finally, add 20 (using 4 iterations of adding 5) to reach 30. The steps in Scratch would involve sequential operations involving variables to track Alex's position.",
-      "math_solution": "Multiplication and addition sequence to reach 30: ((0 + 2) * 5) + 20 = 30.",
-      "scratch_reasoning": "In Scratch, we simulate Alex's movement by leveraging variables to represent his position. Start with position 0. Using a series of 'change by' and 'set to' blocks, simulate adding 2 to the initial position then multiplying the resultant position by 5. Finally, in a loop, add 5 to the position repeatedly to make up the remaining steps (repeated 4 times to add up to 20 more steps) till Alex reaches the exact position of 30.",
+      "question": "In a mystical forest, a squirrel named Squeaky is collecting acorns. He found 15 acorns in the morning and 23 acorns in the afternoon. How many acorns does Squeaky have in total? Use a variable to represent the total number of acorns and create a Scratch program to display the result.",
+      "math_reasoning": "To find the total number of acorns Squeaky has, we need to add the acorns he found in the morning (15) to the acorns he found in the afternoon (23). So, we perform the calculation: Total = Morning acorns + Afternoon acorns = 15 + 23. Next, we calculate that: 15 + 23 = 38. By using a variable 'totalAcorns', we can store the result and display it in Scratch.",
+      "math_solution": "Squeaky has a total of 38 acorns.",
+      "scratch_reasoning": "In Scratch, we create a variable named 'totalAcorns'. When the green flag is clicked, we set 'totalAcorns' to the sum of 15 and 23. Finally, we display the value of 'totalAcorns' using a 'say' block.",
       "scratch_solution": {
         "variables": {
-          "position": 0
+          "totalAcorns": 0
         },
         "blocks": [
           {
@@ -15,33 +15,94 @@
             "actions": [
               {
                 "type": "set",
-                "variable": "position",
-                "to": 0
+                "variable": "totalAcorns",
+                "to": 15,
+                "expression": "15 + 23"
               },
               {
-                "type": "change",
-                "variable": "position",
-                "by": 2
+                "type": "say",
+                "message": "Squeaky has a total of "
               },
               {
-                "type": "multiply",
-                "variable": "position",
-                "by": 5
+                "type": "join",
+                "value1": "totalAcorns",
+                "value2": " acorns!"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "A wizard has a magic potion that requires him to mix different colors. For every 2 drops of blue, he needs 3 drops of yellow. If he wants to make a potion with 12 drops of blue, how many drops of yellow does he need? Use conditional statements in Scratch to calculate and display the number of yellow drops.",
+      "math_reasoning": "The problem states a mixing ratio of blue to yellow as 2:3. To find out how many drops of yellow are required for 12 drops of blue, we first calculate how many sets of the ratio fit into 12. Since each set consists of 2 drops of blue, we divide: Sets = 12 drops of blue / 2 = 6 sets. Now, for every set, we need 3 drops of yellow, so we multiply: Yellow drops needed = 6 sets * 3 drops of yellow = 18 drops. Using a variable 'yellowDrops', we can store this result in Scratch.",
+      "math_solution": "The wizard needs 18 drops of yellow.",
+      "scratch_reasoning": "In Scratch, we will create a variable 'yellowDrops'. By calculating the number of sets from 12 blue drops, we find the amount of yellow needed by multiplying sets by 3. We finally display 'yellowDrops' using a 'say' block.",
+      "scratch_solution": {
+        "variables": {
+          "yellowDrops": 0
+        },
+        "blocks": [
+          {
+            "event": "when green flag clicked",
+            "actions": [
+              {
+                "type": "set",
+                "variable": "sets",
+                "to": 12,
+                "expression": "12 / 2"
               },
+              {
+                "type": "set",
+                "variable": "yellowDrops",
+                "to": "sets * 3"
+              },
+              {
+                "type": "say",
+                "message": "The wizard needs "
+              },
+              {
+                "type": "join",
+                "value1": "yellowDrops",
+                "value2": " drops of yellow."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "In a cupcake shop, Mia bakes 4 cupcakes every hour. If she bakes for 6 hours a day, how many cupcakes will she bake in a day? Create a loop in Scratch to demonstrate the process of counting the cupcakes baked every hour up to 6 hours.",
+      "math_reasoning": "Mia bakes a constant rate of 4 cupcakes every hour. To calculate the total cupcakes baked in a day, we multiply the number of cupcakes baked per hour (4) by the number of hours she bakes (6). So the calculation is: Total cupcakes = 4 cupcakes/hour * 6 hours = 24 cupcakes. We can represent this total in a variable 'totalCupcakes' in Scratch.",
+      "math_solution": "Mia will bake a total of 24 cupcakes in a day.",
+      "scratch_reasoning": "In Scratch, we create a variable named 'totalCupcakes' initialized to 0. We use a loop that runs for 6 iterations, adding 4 cupcakes for each hour. After the loop, we display 'totalCupcakes' using a 'say' block.",
+      "scratch_solution": {
+        "variables": {
+          "totalCupcakes": 0
+        },
+        "blocks": [
+          {
+            "event": "when green flag clicked",
+            "actions": [
               {
                 "type": "repeat",
-                "times": 4,
+                "count": 6,
                 "actions": [
                   {
                     "type": "change",
-                    "variable": "position",
-                    "by": 5
+                    "variable": "totalCupcakes",
+                    "by": 4
                   }
                 ]
               },
               {
                 "type": "say",
-                "message": "Alex reached the hidden treasure at position 30!"
+                "message": "Mia will bake a total of "
+              },
+              {
+                "type": "join",
+                "value1": "totalCupcakes",
+                "value2": " cupcakes in a day!"
               }
             ]
           }
@@ -49,14 +110,13 @@
       }
     },
     {
-      "question": "The Town of Loopville is holding a race, and contestants must reach the finish line exactly at the 10th iteration of their running loop. However, each loop can increase their distance randomly by 2, 3, or 5 steps. Write a Scratch program to calculate the exact distance covered and use loops correctly to ensure each runner finishes at the intended step. Beware of using the wrong type of loop!",
-      "math_reasoning": "The goal is to reach the finish line exactly at the 10th iteration, so the total distance needs to be exactly a multiple that corresponds to the total iterations. If the loop adds 2 steps per iteration, the distance would be 2 * 10 = 20 steps. If 3 steps, then 3 * 10 = 30 steps; if 5 steps, then 5 * 10 = 50 steps. Using Scratch, we would track the number of iterations and the cumulative distance, ensuring the loop condition completes at the 10th cycle to guarantee exact distance based on step increment per iteration.",
-      "math_solution": "Using a loop of 10 iterations, each step can be adjusted to distance = iteration * step_increment (e.g., 20 for 2 steps, 30 for 3 steps, 50 for 5 steps).",
-      "scratch_reasoning": "Implement a loop in Scratch to track 10 iterations where in each iteration the distance is increased by a constant step_increment. Use a variable to store this distance increment and multiply it by the iteration number. Make sure the loop runs exactly 10 times to maintain precise control over the final total distance of the runner completing the race.",
+      "question": "The Treasure Hunt Club has 50 treasure maps, but 8 of them are missing pieces. How many complete treasure maps do they have left? Set up a variable in a Scratch project to calculate and display the number of complete treasure maps.",
+      "math_reasoning": "To determine the number of complete treasure maps, we need to subtract the number of incomplete maps (8) from the total number of maps (50). The calculation performed is: Complete maps = Total maps - Missing maps = 50 - 8. This gives us: 50 - 8 = 42. We can store this result in a variable 'completeMaps' in Scratch.",
+      "math_solution": "The Treasure Hunt Club has 42 complete treasure maps.",
+      "scratch_reasoning": "In Scratch, we will create a variable named 'completeMaps'. We set this variable to the result of 50 - 8 and display its value using a 'say' block.",
       "scratch_solution": {
         "variables": {
-          "distance": 0,
-          "step_increment": 2
+          "completeMaps": 0
         },
         "blocks": [
           {
@@ -64,38 +124,18 @@
             "actions": [
               {
                 "type": "set",
-                "variable": "distance",
-                "to": 0
-              },
-              {
-                "type": "set",
-                "variable": "step_increment",
-                "to": 2
-              },
-              {
-                "type": "repeat",
-                "times": 10,
-                "actions": [
-                  {
-                    "type": "change",
-                    "variable": "distance",
-                    "by": {
-                      "operator": "*",
-                      "operands": [
-                        {
-                          "variable": "step_increment"
-                        },
-                        {
-                          "value": 1
-                        }
-                      ]
-                    }
-                  }
-                ]
+                "variable": "completeMaps",
+                "to": 50,
+                "expression": "50 - 8"
               },
               {
                 "type": "say",
-                "message": "Finished the race with distance {distance}"
+                "message": "The Treasure Hunt Club has "
+              },
+              {
+                "type": "join",
+                "value1": "completeMaps",
+                "value2": " complete treasure maps!"
               }
             ]
           }
@@ -103,23 +143,13 @@
       }
     },
     {
-      "question": "In the Coding Kingdom, knights must prove their skill by balancing variables of their inventory. Sir Code-a-lot tends to collect too many variables and needs your help to manage just the essential ones for battle. Craft a Scratch story where each variable represents a piece of equipment, and find a way to track their total weight without duplicating unnecessary items.",
-      "math_reasoning": "This involves managing a list of items, each with a weight, and ensuring duplicates do not occur while summing the total weight. We need to iterate over the list of items and check if an item already exists in our weighted total. If not, add its weight to the total and flag it as used. In Scratch, this can be done using arrays or lists for inventory, and loop structures to add weights and check for duplicates.",
-      "math_solution": "Iterate through item list, adding unique item weight to total. Track seen items to prevent duplication: total_weight += new_item_weight (if not already counted).",
-      "scratch_reasoning": "To implement an inventory check in Scratch, maintain a list for equipment and another to track seen items. Start by iterating through the list of equipment weights. For each item weight, check if it's not in the seen list. If not present, add to the total weight and mark the item as seen by adding its weight value into the seen list, thus ensuring no repeated weights are added.",
+      "question": "A dragon needs 5 apples every day to stay healthy. If he eats 35 apples in total, how many days has he eaten apples? Use division in a Scratch program to calculate the number of days and display the result.",
+      "math_reasoning": "To find out how many days the dragon has been eating apples, we divide the total number of apples consumed (35) by the number of apples he eats per day (5). Thus, the calculation is: Days = Total apples / Apples per day = 35 / 5. This results in: 35 / 5 = 7 days. We can use a variable 'daysEaten' to display this result in Scratch.",
+      "math_solution": "The dragon has eaten apples for 7 days.",
+      "scratch_reasoning": "In Scratch, we will create a variable 'daysEaten'. We calculate this by dividing 35 by 5. The result is then displayed using a 'say' block.",
       "scratch_solution": {
         "variables": {
-          "total_weight": 0
-        },
-        "lists": {
-          "equipment": [
-            5,
-            10,
-            5,
-            20,
-            10
-          ],
-          "seen_items": []
+          "daysEaten": 0
         },
         "blocks": [
           {
@@ -127,49 +157,18 @@
             "actions": [
               {
                 "type": "set",
-                "variable": "total_weight",
-                "to": 0
-              },
-              {
-                "type": "for each",
-                "item": "weight",
-                "in": "equipment",
-                "actions": [
-                  {
-                    "type": "if",
-                    "condition": {
-                      "operator": "not in",
-                      "operands": [
-                        {
-                          "value": "weight"
-                        },
-                        {
-                          "variable": "seen_items"
-                        }
-                      ]
-                    },
-                    "actions": [
-                      {
-                        "type": "change",
-                        "variable": "total_weight",
-                        "by": {
-                          "value": "weight"
-                        }
-                      },
-                      {
-                        "type": "add to list",
-                        "list": "seen_items",
-                        "item": {
-                          "value": "weight"
-                        }
-                      }
-                    ]
-                  }
-                ]
+                "variable": "daysEaten",
+                "to": 35,
+                "expression": "35 / 5"
               },
               {
                 "type": "say",
-                "message": "Sir Code-a-lot's total weight is {total_weight}"
+                "message": "The dragon has eaten apples for "
+              },
+              {
+                "type": "join",
+                "value1": "daysEaten",
+                "value2": " days!"
               }
             ]
           }
@@ -177,14 +176,13 @@
       }
     },
     {
-      "question": "Join Sally the Scientist in the Lab of Iteration. She is testing a new hypothesis that requires setting up a chain reaction that must repeat a precise number of times to succeed. Help Sally design a Scratch experiment that uses 'repeat until' loops to correctly time and trigger her chemical reactions without missing a step. Ensure no conditions are bypassed!",
-      "math_reasoning": "This problem requires us to set up a looping condition in Scratch that repeats a process until a condition is met. We initialize a count to track the iterations. The 'repeat until' loop continues executing the block of code, designed to simulate a chemical reaction, until the specified condition holds true, such as a reaction activated count equals a target count (e.g., 10). This ensures exact iteration adherence.",
-      "math_solution": "Use 'repeat until' loop in Scratch: Set loop condition to trigger based on number of reactions needed (e.g., 10): i = 0; repeat until i = target_count (increment i per loop).",
-      "scratch_reasoning": "In Scratch, implement a 'repeat until' loop to simulate the chemical reaction. Start with an initial reaction count set to 0. The loop will continually trigger a 'reaction' until it reaches the target reaction count (e.g., 10). Increment the count each time a reaction is triggered to ensure precise control and adherence to the hypothesis.",
+      "question": "In a video game, a player collects coins. They found 25 coins in the first level and 18 coins in the second level. If it costs 10 coins to buy a shield, how many coins are left after buying the shield? Create conditions in Scratch to determine how many coins remain after the purchase.",
+      "math_reasoning": "First, we need to calculate the total number of coins collected by adding the coins from the first level (25) and the second level (18). The calculation is: Total coins = Level 1 coins + Level 2 coins = 25 + 18 = 43 coins. Then, we subtract the cost of the shield (10 coins) from the total coins collected: Remaining coins = Total coins - Cost of shield = 43 - 10 = 33 coins. We can store this result in a variable 'remainingCoins' in Scratch.",
+      "math_solution": "The player has 33 coins left after buying the shield.",
+      "scratch_reasoning": "In Scratch, we create a variable 'remainingCoins' to hold the total after collecting the coins from both levels and then subtracting the cost of the shield. We display this result using a 'say' block.",
       "scratch_solution": {
         "variables": {
-          "reaction_count": 0,
-          "target_count": 10
+          "remainingCoins": 0
         },
         "blocks": [
           {
@@ -192,37 +190,23 @@
             "actions": [
               {
                 "type": "set",
-                "variable": "reaction_count",
-                "to": 0
+                "variable": "totalCoins",
+                "to": 25,
+                "expression": "25 + 18"
               },
               {
-                "type": "repeat until",
-                "condition": {
-                  "operator": "=",
-                  "operands": [
-                    {
-                      "variable": "reaction_count"
-                    },
-                    {
-                      "variable": "target_count"
-                    }
-                  ]
-                },
-                "actions": [
-                  {
-                    "type": "change",
-                    "variable": "reaction_count",
-                    "by": 1
-                  },
-                  {
-                    "type": "say",
-                    "message": "Reacting: {reaction_count}"
-                  }
-                ]
+                "type": "set",
+                "variable": "remainingCoins",
+                "to": "totalCoins - 10"
               },
               {
                 "type": "say",
-                "message": "All reactions completed successfully!"
+                "message": "The player has "
+              },
+              {
+                "type": "join",
+                "value1": "remainingCoins",
+                "value2": " coins left after buying the shield."
               }
             ]
           }

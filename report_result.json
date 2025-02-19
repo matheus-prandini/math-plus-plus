@@ -1,5 +1,29 @@
 {
-  "common_errors": "Globally observed errors encompass diverse mathematical inaccuracies, such as misjudgments in minimum or maximum computation, manifesting when predicting solutions with requirements (e.g., calculating the steps or wrong answer quotas incorrectly as in reviews with scores 4.0 and 3.0). Common programming logic errors involve inefficient repetition and suboptimal loop constructions; for instance, redundancies or unnecessary complexity, seen in reviews where multiple unnecessary operations (e.g., additional variables or control structures like the inefficient use of random directions or unwarranted increments) are prevalent (review scores like 4.0, 5.0, 6.5). Inefficiencies are also visible when solutions haven't adhered to simpler mathematical operations (e.g., overly complex arithmetic or variable handling) leading to convoluted Scratch implementations (review score 5.0).",
-  "weaknesses": "The student's problem-solving abilities reveal fragility mainly in applying structured logic flow meticulously, aligning calculations with intended outcomes while minimizing computational paths. There are evident challenges in interpreting problem constraints accurately leading to logic-flow discrepancies and flawed execution steps, notably when translating a mathematical model into Scratch code or other similar programmable scenarios.",
-  "recommendations": "Further training should prioritize simplifying problem breakdowns and decision trees in Scratch or similar block-based programming, emphasizing minimal viable steps and direct logical constructs. Tailored problem types include sequential ordering tasks, problem-based scenario mapping (specifying conditions and stepwise increments explicitly in a Scratch-like medium), reinforcing understanding through deterministic pre-defined path exercises, eschewing randomness when uncalled for. Encouraging conceptual awareness and prediction of program flow, using conditional statements properly, and aligning solutions with precise goal conditions, will fortify weak spots found in task adherence and loop organization."
+  "insights": [
+    {
+      "area": "mathematics",
+      "error_pattern": "Frequent addition and subtraction errors, particularly with negative numbers and decimals.",
+      "recommendation": "Training Focus: Practice operations with negative numbers and decimals. Example Problem: Calculate the result of -3.5 + 2.7 - 4.8. Provide step-by-step guidance on handling negative signs and decimal alignment."
+    },
+    {
+      "area": "mathematics",
+      "error_pattern": "Misinterpretation of problem constraints leading to solving the wrong problem.",
+      "recommendation": "Training Focus: Improve reading comprehension and problem analysis skills. Example Problem: Given a word problem, identify and list all constraints before attempting a solution. Practice with problems that have similar wording but different constraints to enhance discernment."
+    },
+    {
+      "area": "programming",
+      "error_pattern": "Inefficient use of loops, often using multiple loops where a single loop would suffice.",
+      "recommendation": "Training Focus: Learn to optimize loop usage by understanding loop conditions and iterations. Example Problem: Rewrite a Scratch program that uses two nested loops to achieve the same result with a single loop. Provide examples of loop refactoring to demonstrate efficiency gains."
+    },
+    {
+      "area": "programming",
+      "error_pattern": "Incorrect use of conditionals, leading to logical errors in Scratch implementations.",
+      "recommendation": "Training Focus: Practice constructing and debugging conditional statements. Example Problem: Create a Scratch program that correctly uses 'if-else' blocks to determine if a number is even or odd. Include exercises that require debugging faulty conditional logic."
+    },
+    {
+      "area": "programming",
+      "error_pattern": "Misunderstanding of Scratch block functionalities, particularly with variable initialization and updates.",
+      "recommendation": "Training Focus: Deepen understanding of variable scope and initialization in Scratch. Example Problem: Develop a Scratch project that tracks and updates a score variable correctly throughout the game. Include tasks that require identifying and correcting variable misuse."
+    }
+  ]
 }

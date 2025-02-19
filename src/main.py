@@ -10,7 +10,7 @@ load_dotenv()
 
 
 def generate_initial_training_data():
-    N_ITERATIONS = 8
+    N_ITERATIONS = 10
     all_data = []
     for _ in range(N_ITERATIONS):
         GenerateInitialDataCrew().crew().kickoff()
@@ -98,7 +98,9 @@ def generate_adaptive_training_data():
                 "insight": elem
             }
             print(insight_inputs)
-            GenerateAdaptiveDataCrew().crew().kickoff(inputs=insight_inputs)
+            crew = GenerateAdaptiveDataCrew().crew()
+            crew.kickoff(inputs=insight_inputs)
+            print(f"crew: {crew.usage_metrics}")
             with open("/Users/mathe/Doutorado/github/math-plus-plus/adaptive_result.json", 'r') as file:
                 current_data = json.load(file)
                 all_data.extend([item for item in current_data["items"]])
@@ -214,7 +216,9 @@ def evaluate_inferences():
             "evaluation_data": data
         })
 
-    results = EvaluateKnowledgeCrew().crew().kickoff_for_each(inputs=evaluation_data_converted)
+    crew = EvaluateKnowledgeCrew().crew()
+    results = crew.kickoff_for_each(inputs=evaluation_data_converted)
+    print(f"crew: {crew.usage_metrics}")
 
     score_data = []
     for result in results:
@@ -230,7 +234,9 @@ def evaluate_inferences():
     report_generator_inputs = {
         "feedbacks": score_data
     }
-    ReportGeneratorCrew().crew().kickoff(inputs=report_generator_inputs)
+    report_crew = ReportGeneratorCrew().crew()
+    report_result = report_crew.kickoff(inputs=report_generator_inputs)
+    print(f"report_crew: {report_crew.usage_metrics}")
 
     print(f"len score data: {score_data}")
     math_scores = [item["math_score"] for item in score_data]
@@ -239,6 +245,8 @@ def evaluate_inferences():
     mean_score = sum(all_scores) / len(all_scores)
 
     print(f"Results: \n\n All Math Scores: {math_scores} \n All Scratch Scores: {scratch_scores} \n All Combined Scores: {all_scores} \n Mean Score: {mean_score}")
+
+    print(f"report result: {report_result}")
 
 def create_finetuning_file(filepath):
     client = OpenAI()
@@ -256,22 +264,17 @@ def run_training_epoch(file_id, model_name = "gpt-3.5-turbo-0125"):
         model=model_name
     )
 
-# create_finetuning_file(filepath="/Users/mathe/Doutorado/github/math-plus-plus/exp1_extended_training_data.jsonl")
+# create_finetuning_file(filepath="/Users/mathe/Doutorado/github/math-plus-plus/exp1_o1mini_training_data.jsonl")
 
 # run_training_epoch(
-#     file_id="file-DtpLdkLM78Hh8qENM2ECeK",
-#     model_name="ft:gpt-3.5-turbo-0125:neospace::Aax5ryL5"
-# )
-
-# run_training_epoch(
-#     file_id="file-T4hggA3a38GQiAoT7V5iih",
+#     file_id="file-7RhFUJEXbhu8f1rE9aXGRY",
 # )
 
 # get_validation_inference()
 
 # evaluate_inferences()
 
-# get_validation_inference(model_name="ft:gpt-3.5-turbo-0125:neospace::AfE1u9JO")
+# get_validation_inference(model_name="ft:gpt-3.5-turbo-0125:prandini::B2OvLsN9")
 
 evaluate_inferences()
 
@@ -280,3 +283,155 @@ evaluate_inferences()
 # generate_initial_training_data()
 
 # generate_initial_test_data()
+
+
+# crew = GenerateInitialDataCrew().crew()
+# crew.kickoff()
+# print(f"crew: {crew}\n\n")
+# print(crew.usage_metrics)
+
+
+def calculate_costs(crew_usage_metrics, model="gpt4o"):
+    if model == "gpt4o":
+        model_input_price = 2.50
+        model_output_price = 10.0
+        unit_of_tokens = 1000000
+    elif model == "gpt4o-mini":
+        model_input_price = 0.15
+        model_output_price = 0.6
+        unit_of_tokens = 1000000
+
+    prompt_tokens = crew_usage_metrics.get('prompt_tokens')
+    completion_tokens = crew_usage_metrics.get('completion_tokens')
+    
+    input_cost = (prompt_tokens / unit_of_tokens) * model_input_price
+    output_cost = (completion_tokens / unit_of_tokens) * model_output_price
+    total_cost = input_cost + output_cost
+    
+    return {
+        'total_cost': total_cost,
+        'input_cost': input_cost,
+        'output_cost': output_cost
+    }
+
+## Initial Training Data
+    
+# crew_usage_metrics = {
+#     "total_tokens": 9395,
+#     "prompt_tokens": 5569,
+#     "completion_tokens": 3826,
+#     "successful_requests": 4
+# }
+
+# gpt4omini_results = calculate_costs(
+#     crew_usage_metrics=crew_usage_metrics,
+#     model_input_price=0.15,
+#     model_output_price=0.6,
+#     unit_of_tokens=1000000
+# )
+
+# print(f"gpt4omini results: {gpt4omini_results}")
+# gpt4omini results: {'total_cost': 0.00313095, 'input_cost': 0.00083535, 'output_cost': 0.0022956}
+
+
+# gpt4o_results = calculate_costs(
+#     crew_usage_metrics=crew.usage_metrics.model_dump(),
+#     model_input_price=2.50,
+#     model_output_price=10.0,
+#     unit_of_tokens=1000000
+# )
+
+# print(f"gpt4o results: {gpt4o_results}")
+# gpt4o results: {'total_cost': 0.08081, 'input_cost': 0.02276, 'output_cost': 0.058050000000000004}
+
+
+## Adaptive Training Data
+
+# crew: total_tokens=8039 prompt_tokens=3933 cached_prompt_tokens=0 completion_tokens=4106 successful_requests=3
+# crew_usage_metrics = {
+#     "total_tokens": 8039,
+#     "prompt_tokens": 3933,
+#     "completion_tokens": 4106,
+#     "successful_requests": 3
+# }
+# gpt4o_results = calculate_costs(
+#     crew_usage_metrics=crew_usage_metrics,
+#     model="gpt4o"
+# )
+
+# print(f"gpt4o results: {gpt4o_results}")
+# gpt4o results: {'total_cost': 0.0508925, 'input_cost': 0.0098325, 'output_cost': 0.04106}
+
+
+
+# crew: total_tokens=12144 prompt_tokens=6713 cached_prompt_tokens=1024 completion_tokens=5431 successful_requests=5
+# crew_usage_metrics = {
+#     "total_tokens": 12144,
+#     "prompt_tokens": 6713,
+#     "completion_tokens": 5431,
+#     "successful_requests": 5
+# }
+# gpt4omini_results = calculate_costs(
+#     crew_usage_metrics=crew_usage_metrics,
+#     model="gpt4o-mini"
+# )
+
+# print(f"gpt4o-mini results: {gpt4omini_results}")
+# gpt4o-mini results: {'total_cost': 0.00426555, 'input_cost': 0.00100695, 'output_cost': 0.0032586}
+
+
+## Knowledge Evaluator
+
+# crew: total_tokens=16975 prompt_tokens=12610 cached_prompt_tokens=8192 completion_tokens=4365 successful_requests=10
+# report_crew: total_tokens=1465 prompt_tokens=1012 cached_prompt_tokens=0 completion_tokens=453 successful_requests=1
+
+# crew_usage_metrics = {
+#     "total_tokens": 18840,
+#     "prompt_tokens": 13622,
+#     "completion_tokens": 4818,
+#     "successful_requests": 11
+# }
+# gpt4o_results = calculate_costs(
+#     crew_usage_metrics=crew_usage_metrics,
+#     model="gpt4o"
+# )
+
+# print(f"gpt4o results: {gpt4o_results}")
+# gpt4o results: {'total_cost': 0.082235, 'input_cost': 0.034055, 'output_cost': 0.04818}
+
+
+# crew: total_tokens=16387 prompt_tokens=12610 cached_prompt_tokens=9216 completion_tokens=3777 successful_requests=10
+# report_crew: total_tokens=1532 prompt_tokens=1012 cached_prompt_tokens=0 completion_tokens=520 successful_requests=1
+
+# crew_usage_metrics = {
+#     "total_tokens": 17919,
+#     "prompt_tokens": 11598,
+#     "completion_tokens": 4297,
+#     "successful_requests": 11
+# }
+# gpt4o_results = calculate_costs(
+#     crew_usage_metrics=crew_usage_metrics,
+#     model="gpt4o-mini"
+# )
+
+# print(f"gpt4o-mini results: {gpt4o_results}")
+# gpt4o-mini results: {'total_cost': 0.0043178999999999995, 'input_cost': 0.0017397, 'output_cost': 0.0025781999999999997}
+
+
+## Total
+
+# gpt4o initial data:  0,8081$ (10 iterations)
+# gpt4o-mini initial data:  0,03131$ (10 iterations)
+
+# gpt4o adaptive data:  0,1526775$ (3 iterations)
+# gpt4o-mini initial data:  0,01279665$ (3 iterations)
+
+# gpt4o knowledge evaluator:  0,082235$ (1 iteration)
+# gpt4o-mini knowledge evaluator:  0,0043179$ (1 iteration)
+
+##
+
+# gpt4o Initial Data + 1 loop: 1,129345$
+# gpt4o-mini Initial Data + 1 loop: 0,05274245$
+
+##
