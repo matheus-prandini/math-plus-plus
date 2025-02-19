@@ -1,4 +1,4 @@
-from crewai import Agent, Crew, Process, Task
+from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool
 from pydantic import BaseModel
@@ -28,6 +28,11 @@ class ScratchSolverItem(BaseModel):
 class ScratchSolverResponse(BaseModel):
 	items: list[ScratchSolverItem]
 
+# deepseek_llm = LLM(
+#     model="together_ai/deepseek-ai/DeepSeek-R1",
+#     api_key="afad9cf260270c73a798629c50e929f2bebb3a098c655b2f4d3d24e9dc5b6bbf"
+# )
+
 @CrewBase
 class GenerateInitialDataCrew():
 	"""GenerateInitialData crew"""
@@ -38,7 +43,8 @@ class GenerateInitialDataCrew():
 			config=self.agents_config['creator'],
 			# tools=[FileReadTool(file_path='/Users/mathe/Doutorado/github/math-plus-plus/ideb.txt')],
 			verbose=True,
-			llm="gpt-4o"
+			llm="gpt-4o",
+			max_rpm=5
 		)
 
 	@agent
@@ -46,7 +52,8 @@ class GenerateInitialDataCrew():
 		return Agent(
 			config=self.agents_config['math_solver'],
 			verbose=True,
-			llm="gpt-4o"
+			llm="gpt-4o",
+			max_rpm=5
 		)
 
 	@agent
@@ -54,7 +61,8 @@ class GenerateInitialDataCrew():
 		return Agent(
 			config=self.agents_config['scratch_solver'],
 			verbose=True,
-			llm="gpt-4o"
+			llm="gpt-4o",
+			max_rpm=5
 		)
 
 	@task

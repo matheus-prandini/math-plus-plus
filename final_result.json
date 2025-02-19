@@ -1,51 +1,36 @@
 {
   "items": [
     {
-      "question": "Treasure Island Adventure: You are an explorer looking for treasures hidden on five different islands. Each island has a certain number of hidden coins. However, to protect your treasures from pirates, you must calculate the total number of coins on each island, ensuring your operations are correct. Use Scratch to create a program that calculates the total coins for islands with assigned values, and use loops to repeat your calculations for all islands. Ensure that your program only displays the correct sum for each island without unnecessary operations. Can you find all the treasures correctly and avoid pirate traps?",
-      "math_reasoning": "To solve this problem, we must first identify the number of hidden coins on each island. Let's assume we have five variables representing the coins on each island: coins_island1, coins_island2, coins_island3, coins_island4, coins_island5. Using Scratch, you can create a list or array to store these values. Then, utilize a loop (such as a 'for' loop) to iterate through this list. During each iteration, the loop will add the value of the current item's coins to a running total. Finally, each iteration will output the total number of coins for the respective island. This approach ensures operations are streamlined, and only the correct sum is displayed for each island without additional redundant calculations.",
-      "math_solution": "Using Scratch, implement a program that initializes variables for the number of coins on each island. Then, create a loop to iterate through each island and calculate the sum of coins. The program should print the total coins for each island as it finishes each loop iteration. Ensure that each value corresponds accurately to the assigned values of coins for the islands.",
-      "scratch_reasoning": "In Scratch, we will use a list to hold the number of coins on each of the five islands. We will then create a 'for each item in list' loop to iterate over this list. For each item in the list, we retrieve its value and print it as the total coins for that island. This approach ensures simplicity and clarity, requiring no additional calculations as each island's coin count is predetermined and displayed directly.",
+      "question": "In the game 'Monster Catcher,' you have 3 different types of monsters: Fire, Water, and Grass. Each Fire monster gives you 5 points, each Water monster gives you 3 points, and each Grass monster gives you 2 points. If you catch 4 Fire monsters, 2 Water monsters, and 5 Grass monsters, how many total points do you have?",
+      "math_reasoning": "To find the total points, multiply the number of each type of monster caught by the points they provide and then add the results together.\n\nPoints from Fire monsters: 4 Fire monsters * 5 points each = 20 points\nPoints from Water monsters: 2 Water monsters * 3 points each = 6 points\nPoints from Grass monsters: 5 Grass monsters * 2 points each = 10 points\n\nTotal points = 20 + 6 + 10 = 36 points",
+      "math_solution": "36 points",
+      "scratch_reasoning": "In Scratch, we'll create variables for each type of monster (Fire, Water, Grass) and their respective points. We'll calculate the total points by multiplying the number of each monster by its point value and then summing these values. Finally, we'll use a 'say' block to display the total points to the player.",
       "scratch_solution": {
         "variables": {
-          "coins_on_islands": [
-            18,
-            27,
-            34,
-            45,
-            50
-          ],
-          "index": 0
+          "FireMonsters": 4,
+          "WaterMonsters": 2,
+          "GrassMonsters": 5,
+          "FirePoints": 5,
+          "WaterPoints": 3,
+          "GrassPoints": 2,
+          "TotalPoints": 0
         },
         "blocks": [
           {
             "event": "when green flag clicked",
             "actions": [
               {
-                "type": "repeat until",
-                "condition": {
-                  "operator": ">",
-                  "operands": [
-                    {
-                      "variable": "index"
-                    },
-                    4
-                  ]
-                },
-                "actions": [
-                  {
-                    "type": "say",
-                    "message": "Island coins are: coins_On_islands [ index ]"
-                  },
-                  {
-                    "type": "change",
-                    "variable": "index",
-                    "by": 1
-                  }
-                ]
+                "type": "set",
+                "variable": "TotalPoints",
+                "value": "(FireMonsters * FirePoints) + (WaterMonsters * WaterPoints) + (GrassMonsters * GrassPoints)"
               },
               {
                 "type": "say",
-                "message": "All islands accounted for!"
+                "message": "You have",
+                "message_variable": {
+                  "variable": "TotalPoints"
+                },
+                "message_end": " points in total!"
               }
             ]
           }
@@ -53,73 +38,68 @@
       }
     },
     {
-      "question": "Candy Factory Challenge: In the candy factory, you are tasked with packaging candies where each package contains the same number of candies. Sometimes, the machine malfunctions, causing packages to have incorrect numbers. Use Scratch to design a simulation that uses variables to store the correct number of candies per package and correct any mismatches automatically using loops and conditions. Your challenge is to determine the maximum number of correct packages you can create and prevent candy wastage. Will your packing skills help run the factory smoothly?",
-      "math_reasoning": "This problem involves ensuring each package contains a precise number of candies. We can simulate this using Scratch by defining variables for the 'correct number of candies per package' and another for 'current candies in a package.' Use a loop to simulate the packing process. Within the loop, utilize conditions to check if the number of candies in a package matches the correct number. If a mismatch is detected, adjust the count accordingly to prevent candy wastage. Count the packages that meet the correct criteria, which represents the maximum number of correct packages producible without wastage.",
-      "math_solution": "Use Scratch to define the number of candies each package should contain. Create a loop that simulates packing, along with a condition that verifies if each package has the correct number of candies. Adjust the number accordingly for each package in the loop. Output the count of correctly packed packages at the end, representing the maximum number without wastage.",
-      "scratch_reasoning": "In Scratch, simulate candy packing by using variables for 'correct_candies_per_package' and 'current_candies.' A loop is used to simulate repeated attempts to pack candies. Within the loop, a condition checks if the current number of candies matches the correct number. If not, it adjusts the package to make it correct, and if correct, it increments the counter of completed packages. This loop continues for a set number of attempts, and then it reports how many perfect packages were made.",
+      "question": "You are helping a robot collect gems in the game 'Gem Explorer.' The robot collects one gem every 2 seconds. If the robot runs for 10 seconds, how many gems will it collect?",
+      "math_reasoning": "The robot collects 1 gem every 2 seconds. To find out how many gems it collects in 10 seconds, divide the total time by the time it takes to collect one gem.\n\nNumber of gems = Total time / Time per gem\nNumber of gems = 10 seconds / 2 seconds per gem = 5 gems",
+      "math_solution": "5 gems",
+      "scratch_reasoning": "We'll create variables for the total time, time per gem, and the number of gems collected. Using a loop, we'll simulate the passage of time and increment the gem count each time 2 seconds pass. After 10 seconds, we'll display the total number of gems collected using a 'say' block.",
       "scratch_solution": {
         "variables": {
-          "correct_candies_per_package": 10,
-          "current_candies": 0,
-          "correct_packages": 0,
-          "attempts": 0
+          "TotalTime": 10,
+          "TimePerGem": 2,
+          "ElapsedTime": 0,
+          "GemsCollected": 0
         },
         "blocks": [
           {
             "event": "when green flag clicked",
             "actions": [
               {
+                "type": "set",
+                "variable": "ElapsedTime",
+                "value": 0
+              },
+              {
+                "type": "set",
+                "variable": "GemsCollected",
+                "value": 0
+              },
+              {
                 "type": "repeat until",
                 "condition": {
-                  "operator": "=",
+                  "operator": ">=",
                   "operands": [
                     {
-                      "variable": "attempts"
+                      "variable": "ElapsedTime"
                     },
-                    10
+                    {
+                      "variable": "TotalTime"
+                    }
                   ]
                 },
                 "actions": [
                   {
                     "type": "change",
-                    "variable": "current_candies",
-                    "by": "pick random 5 to 15"
-                  },
-                  {
-                    "type": "if",
-                    "condition": {
-                      "operator": "=",
-                      "operands": [
-                        {
-                          "variable": "current_candies"
-                        },
-                        {
-                          "variable": "correct_candies_per_package"
-                        }
-                      ]
-                    },
-                    "actions": [
-                      {
-                        "type": "change",
-                        "variable": "correct_packages",
-                        "by": 1
-                      },
-                      {
-                        "type": "say",
-                        "message": "A perfect package was made!"
-                      }
-                    ]
+                    "variable": "ElapsedTime",
+                    "by": 2
                   },
                   {
                     "type": "change",
-                    "variable": "attempts",
+                    "variable": "GemsCollected",
                     "by": 1
+                  },
+                  {
+                    "type": "wait",
+                    "duration": 2
                   }
                 ]
               },
               {
                 "type": "say",
-                "message": "Correct packages made: correct_packages"
+                "message": "The robot collected",
+                "message_variable": {
+                  "variable": "GemsCollected"
+                },
+                "message_end": " gems!"
               }
             ]
           }
@@ -127,53 +107,153 @@
       }
     },
     {
-      "question": "Alien Code Jam: Aliens have invaded your computer's logic! They're confusing your calculations by adding too many steps. Your mission is to help the computer solve a simple arithmetic puzzle using the least number of code commands. Implement in Scratch a function that sums a set of numbers using loops efficiently while avoiding any unnecessary commands. Can you optimize the calculation and outsmart the alien interference?",
-      "math_reasoning": "To achieve an optimized solution, identify the set of numbers that need to be summed. Use a Scratch program to initialize a variable that stores the total sum. Then, use a loop to iterate over the set of numbers, adding each number to the total sum variable during each loop iteration. Ensure that the loop is set to the correct count of iterations based on the number of elements in the dataset. Avoid any extra code or steps that do not contribute directly to the sum calculation.",
-      "math_solution": "Implement a Scratch program that initializes a 'total' variable set to zero. Iterate over your set of numbers with a loop. During each iteration, add the current number to the 'total' variable. Continue until all numbers have been processed. Finally, display the 'total' to show the sum of the numbers. This approach minimizes steps and ensures efficiency against unnecessary alien-induced logic disruptions.",
-      "scratch_reasoning": "In Scratch, use a list to hold the numbers that need to be summed. Initialize a variable 'total' to store the sum. Use a 'repeat' loop to iterate over each number in the list, adding it to the 'total' variable. After the loop completes, display the total sum with a 'say' block, ensuring efficient and optimal calculations with minimal additional steps.",
+      "question": "In the adventure game 'Treasure Hunt,' the treasure chest opens when you solve a math puzzle. The puzzle is to find the sum of two numbers: 7 and 9. What number unlocks the treasure chest?",
+      "math_reasoning": "To find the sum of two numbers, add them together.\n\nSum = 7 + 9 = 16",
+      "math_solution": "16",
+      "scratch_reasoning": "We'll create two variables for the numbers to be added. Using Scratch's arithmetic blocks, we'll add these two numbers and store the result in a third variable. Finally, we'll use a 'say' block to display the sum, which unlocks the treasure chest.",
       "scratch_solution": {
         "variables": {
-          "numbers": [
-            5,
-            12,
-            8,
-            10,
-            6
-          ],
-          "total": 0,
-          "index": 0
+          "Number1": 7,
+          "Number2": 9,
+          "Sum": 0
         },
         "blocks": [
           {
             "event": "when green flag clicked",
             "actions": [
               {
+                "type": "set",
+                "variable": "Sum",
+                "value": "Number1 + Number2"
+              },
+              {
+                "type": "say",
+                "message": "The treasure chest unlocks with the number",
+                "message_variable": {
+                  "variable": "Sum"
+                },
+                "message_end": "!"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "In the game 'Race to the Finish,' your car speeds up by 2 units every second due to a speed boost. If the car starts at speed 4 units per second, what will be its speed after 5 seconds?",
+      "math_reasoning": "The car starts at 4 units per second and increases its speed by 2 units each second. To find the speed after 5 seconds, calculate the total increase and add it to the starting speed.\n\nTotal increase = 2 units/second * 5 seconds = 10 units\nFinal speed = Starting speed + Total increase = 4 + 10 = 14 units per second",
+      "math_solution": "14 units per second",
+      "scratch_reasoning": "We'll set up variables for the starting speed, speed increase per second, and the total time. Using a loop, we'll increment the car's speed by 2 units each second for 5 seconds. After the loop, we'll display the final speed using a 'say' block.",
+      "scratch_solution": {
+        "variables": {
+          "StartingSpeed": 4,
+          "SpeedIncrease": 2,
+          "Time": 5,
+          "FinalSpeed": 0,
+          "ElapsedTime": 0
+        },
+        "blocks": [
+          {
+            "event": "when green flag clicked",
+            "actions": [
+              {
+                "type": "set",
+                "variable": "FinalSpeed",
+                "value": "StartingSpeed"
+              },
+              {
+                "type": "set",
+                "variable": "ElapsedTime",
+                "value": 0
+              },
+              {
+                "type": "repeat",
+                "count": "Time",
+                "actions": [
+                  {
+                    "type": "change",
+                    "variable": "FinalSpeed",
+                    "by": "SpeedIncrease"
+                  },
+                  {
+                    "type": "change",
+                    "variable": "ElapsedTime",
+                    "by": 1
+                  },
+                  {
+                    "type": "wait",
+                    "duration": 1
+                  }
+                ]
+              },
+              {
+                "type": "say",
+                "message": "After",
+                "message_variable": {
+                  "variable": "Time"
+                },
+                "message_end": " seconds, the speed is",
+                "message_variable_end": {
+                  "variable": "FinalSpeed"
+                },
+                "message_end_final": " units per second."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "question": "In 'Space Invaders,' you have a shield that can block a certain number of enemy attacks. If your shield can block 3 attacks and you encounter enemy attacks in loops of 1 attack per loop, how many loops can your shield protect you against before it’s depleted?",
+      "math_reasoning": "The shield can block 3 attacks, and each loop has 1 attack. To find out how many loops the shield can protect against, divide the total number of blocks by the number of attacks per loop.\n\nNumber of loops = Total blocks / Attacks per loop = 3 / 1 = 3 loops",
+      "math_solution": "3 loops",
+      "scratch_reasoning": "We'll create variables for the total shield blocks and attacks per loop. Using a loop, we'll decrement the shield blocks by the number of attacks each loop until the shield is depleted. We'll count the number of loops the shield can protect against and display this number using a 'say' block.",
+      "scratch_solution": {
+        "variables": {
+          "TotalBlocks": 3,
+          "AttacksPerLoop": 1,
+          "LoopsProtected": 0
+        },
+        "blocks": [
+          {
+            "event": "when green flag clicked",
+            "actions": [
+              {
+                "type": "set",
+                "variable": "LoopsProtected",
+                "value": 0
+              },
+              {
                 "type": "repeat until",
                 "condition": {
-                  "operator": ">",
+                  "operator": "<=",
                   "operands": [
                     {
-                      "variable": "index"
+                      "variable": "TotalBlocks"
                     },
-                    4
+                    0
                   ]
                 },
                 "actions": [
                   {
                     "type": "change",
-                    "variable": "total",
-                    "by": "numbers [ index ]"
+                    "variable": "TotalBlocks",
+                    "by": "-AttacksPerLoop"
                   },
                   {
                     "type": "change",
-                    "variable": "index",
+                    "variable": "LoopsProtected",
                     "by": 1
                   }
                 ]
               },
               {
                 "type": "say",
-                "message": "The total sum is: total"
+                "message": "Your shield protected you for",
+                "message_variable": {
+                  "variable": "LoopsProtected"
+                },
+                "message_end": " loops before it was depleted."
               }
             ]
           }
